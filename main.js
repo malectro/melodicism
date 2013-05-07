@@ -8,12 +8,15 @@
   MM.init = function () {
     var canvas = document.getElementById('canvas');
     MM.Canvas.init(canvas);
-    MM.Canvas.start()
 
     MM.Audio.init();
 
     MM.Node.init();
+
+    MM.nodes = [MM.Node];
+
     MM.Node.start();
+    MM.Canvas.start()
   };
 
   require([

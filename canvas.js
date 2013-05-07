@@ -3,6 +3,9 @@
 
   var me = root.Melodicism.Canvas = {};
 
+  var Audio;
+  var _nodes;
+
   var _canvas;
   var _ctx;
 
@@ -16,7 +19,10 @@
     me.resize();
     window.addEventListener('resize', _.debounce(me.resize, 100));
 
-    _drawTime = _.now();
+    Audio = root.Melodicism.Audio;
+    _nodes = root.Melodicism.nodes;
+
+    _drawTime = _.now() / 1000;
   };
 
   me.requestAnimationFrame =
@@ -37,7 +43,21 @@
 
   me.draw = function () {
     // draw the shit!
-    var currentTime = _.now();
+    var currentTime = Audio.ctx.currentTime;
+    var node;
+
+    _nodes = root.Melodicism.nodes;
+
+    _ctx.clearRect(0, 0, 100000000, 100000000);
+
+    for (var i = 0, l = _nodes.length; i < l; i++) {
+      node = _nodes[i];
+
+      _ctx.beginPath();
+      _ctx.arc(node.location.x, node.location.y, 10, 0, 2 * Math.PI);
+      _ctx.fillStyle = 'white';
+      _ctx.fill();
+    }
 
     _drawTime = currentTime;
 
