@@ -9,11 +9,18 @@
     var canvas = document.getElementById('canvas');
     MM.Canvas.init(canvas);
     MM.Canvas.start()
+
+    MM.Audio.init();
+
+    MM.Node.init();
+    MM.Node.start();
   };
 
   require([
     'Util',
-    'canvas'
+    'canvas',
+    'audio',
+    'node'
   ], MM.init);
 }());
 
