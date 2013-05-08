@@ -27,7 +27,7 @@
     _drawTime = _.now() / 1000;
   };
 
-  me.requestAnimationFrame =
+  var requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||

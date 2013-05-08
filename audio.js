@@ -9,6 +9,8 @@
 
   me.init = function () {
     me.ctx = new webkitAudioContext();
+    me.fixForOldVersions();
+
     me.master = me.ctx.createDynamicsCompressor();
     me.master.connect(me.ctx.destination);
 
@@ -41,6 +43,21 @@
     } else {
       me.start();
     }
+  };
+
+  me.fixForOldVersions = function () {
+    me.ctx.createGain = me.ctx.createGain || me.ctx.createGainNode;
+    me.ctx.createDelay = me.ctx.createDelay || me.ctx.createDelayNode;
+  };
+
+  me.createOscillator = function () {
+    if (!me.oscillator) {
+      me.oscillator = me.ctx.createOscillator();
+      me.oscillator.start = me.oscillator.start || me.oscillator.noteOn;
+      me.oscillator.stop = me.oscillator.start || me.oscillator.noteOff;
+    }
+
+    return me.oscillator;
   };
 }());
 

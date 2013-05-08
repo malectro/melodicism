@@ -53,7 +53,7 @@
       this.gainer.gain.linearRampToValueAtTime(this.envelope[i][0], ct + this.envelope[i][1]);
     }
 
-    this.oscillator = Audio.ctx.createOscillator();
+    this.oscillator = Audio.createOscillator();
     this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
     this.oscillator.connect(this.gainer);
     this.oscillator.start(ct);
