@@ -5,9 +5,12 @@
 
   var document = root.document;
   var _events = [
-    'pauseplay'
+    'pauseplay',
+    'touch',
+    'move'
   ];
   var _eventHash = {};
+  var _touching = false;
 
   // PC controller events
   var _pcKeys = {
@@ -31,12 +34,34 @@
     }
   }
 
-  me.fire = function (eventName, state) {
+  function _mousedown(e) {
+    if (me.fire('touch', 'down', e)) {
+      e.preventDefault();
+    }
+    _touching = true;
+  }
+
+  function _mouseup(e) {
+    if (me.fire('touch', 'up', e)) {
+      e.preventDefault();
+    }
+    _touching = false;
+  }
+
+  function _mousemove(e) {
+    if (_touching && me.fire('move', 'down', e)) {
+      e.preventDefault();
+    } else if (me.fire('move', 'up', e)) {
+      e.preventDefault();
+    }
+  }
+
+  me.fire = function (eventName, state, e) {
     var event = _eventHash[eventName];
     if (event) {
       var funcs = event[state];
       for (var i = 0, l = funcs.length; i < l; i++) {
-        funcs[i]();
+        funcs[i](e);
       }
       return true;
     }
@@ -65,6 +90,9 @@
 
     document.body.addEventListener('keydown', _keydown);
     document.body.addEventListener('keyup', _keyup);
+    document.body.addEventListener('mousedown', _mousedown);
+    document.body.addEventListener('mousemove', _mousemove);
+    document.body.addEventListener('mouseup', _mouseup);
   };
 
 }());

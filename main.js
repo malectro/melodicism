@@ -13,8 +13,10 @@
     MM.Audio.init();
 
     MM.Node.init();
+    MM.Nodes.init();
 
     MM.nodes = [MM.Node];
+    MM.Nodes.add(MM.Node);
 
     MM.Node.start();
     MM.Canvas.start()
@@ -26,7 +28,8 @@
     'controller',
     'canvas',
     'audio',
-    'node'
+    'node',
+    'nodes'
   ], MM.init);
 }());
 

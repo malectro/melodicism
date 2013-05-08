@@ -67,5 +67,10 @@
     return ct - lastTime;
   };
 
+  me.contains = function (point) {
+    var distance = Math.sqrt(Math.pow(this.location.x - point.x, 2) + Math.pow(this.location.y - point.y, 2));
+    return distance < this.radius;
+  };
+
 }());
 
