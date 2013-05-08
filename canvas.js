@@ -54,6 +54,8 @@
       node = _nodes[i];
 
       _ctx.beginPath();
+      _ctx.shadowColor = 'white';
+      _ctx.shadowBlur = node.gainer.gain.value * 50;
       _ctx.arc(node.location.x, node.location.y, 10, 0, 2 * Math.PI);
       _ctx.fillStyle = 'white';
       _ctx.fill();

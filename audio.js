@@ -2,6 +2,8 @@
   var root = this;
   var me = root.Melodicism.Audio = {};
 
+  var _nodes;
+
   var _interval = null;
   var _tickTime = 0;
 
@@ -12,7 +14,13 @@
   };
 
   me.tick = function () {
+    var currentTime = me.ctx.currentTime;
 
+    _nodes = root.Melodicism.nodes;
+
+    for (var i = 0, l = _nodes.length; i < l; i++) {
+      _nodes[i].tick(currentTime);
+    }
   };
 
   me.start = function () {

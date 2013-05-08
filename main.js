@@ -17,6 +17,7 @@
 
     MM.Node.start();
     MM.Canvas.start()
+    MM.Audio.start();
   };
 
   require([
