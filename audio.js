@@ -11,6 +11,8 @@
     me.ctx = new webkitAudioContext();
     me.master = me.ctx.createDynamicsCompressor();
     me.master.connect(me.ctx.destination);
+
+    root.Melodicism.Controller.listen('pauseplay', 'down', me.pausePlay);
   };
 
   me.tick = function () {
@@ -31,6 +33,14 @@
   me.stop = function () {
     clearInterval(_interval);
     _interval = null;
+  };
+
+  me.pausePlay = function () {
+    if (_interval) {
+      me.stop();
+    } else {
+      me.start();
+    }
   };
 }());
 

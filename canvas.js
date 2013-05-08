@@ -19,6 +19,8 @@
     me.resize();
     window.addEventListener('resize', _.debounce(me.resize, 100));
 
+    root.Melodicism.Controller.listen('pauseplay', 'down', me.pausePlay);
+
     Audio = root.Melodicism.Audio;
     _nodes = root.Melodicism.nodes;
 
@@ -46,6 +48,8 @@
     var currentTime = Audio.ctx.currentTime;
     var node;
 
+    var color;
+
     _nodes = root.Melodicism.nodes;
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
@@ -53,11 +57,14 @@
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
+      color = node.gainer.gain.value * 200 + 55;
+
       _ctx.beginPath();
       _ctx.shadowColor = 'white';
       _ctx.shadowBlur = node.gainer.gain.value * 50;
       _ctx.arc(node.location.x, node.location.y, 10, 0, 2 * Math.PI);
-      _ctx.fillStyle = 'white';
+      _ctx.fillStyle = me.rgb(color, color, color);
+      console.log(_ctx.fillStyle);
       _ctx.fill();
     }
 
@@ -75,6 +82,18 @@
 
   me.stop = function () {
     _animating = false;
+  };
+
+  me.pausePlay = function () {
+    if (_animating) {
+      me.stop();
+    } else {
+      me.start();
+    }
+  };
+
+  me.rgb = function (r, g, b) {
+    return "rgb(" + r + "," + g + "," + b + ")";
   };
 
 }());

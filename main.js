@@ -7,8 +7,9 @@
 
   MM.init = function () {
     var canvas = document.getElementById('canvas');
-    MM.Canvas.init(canvas);
 
+    MM.Controller.init();
+    MM.Canvas.init(canvas);
     MM.Audio.init();
 
     MM.Node.init();
@@ -22,6 +23,7 @@
 
   require([
     'Util',
+    'controller',
     'canvas',
     'audio',
     'node'
