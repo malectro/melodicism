@@ -57,15 +57,21 @@
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
-      color = node.gainer.gain.value * 200 + 55;
+      color = Math.floor(node.gainer.gain.value * 150 + 105);
 
-      _ctx.beginPath();
       _ctx.shadowColor = 'white';
       _ctx.shadowBlur = node.gainer.gain.value * 50;
-      _ctx.arc(node.location.x, node.location.y, 10, 0, 2 * Math.PI);
+
+      _ctx.beginPath();
+      _ctx.arc(node.location.x, node.location.y, node.radius, 0, 2 * Math.PI);
       _ctx.fillStyle = me.rgb(color, color, color);
-      console.log(_ctx.fillStyle);
       _ctx.fill();
+
+      _ctx.beginPath();
+      _ctx.arc(node.location.x, node.location.y, Math.floor(node.waveRadius * node.timeSincePulse(currentTime) / node.period + node.radius), 0, 2 * Math.PI);
+      _ctx.strokeStyle = me.rgb(color, color, color);
+      _ctx.lineWidth = 1;
+      _ctx.stroke();
     }
 
     _drawTime = currentTime;

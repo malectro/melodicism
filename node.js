@@ -8,6 +8,8 @@
     Audio = root.Melodicism.Audio;
 
     this.location = {x: 100, y: 100};
+    this.radius = 10;
+    this.waveRadius = 200;
 
     this.envelope = [
       [1, 0.01],
@@ -52,6 +54,17 @@
     this.oscillator.stop(ct + this.envelope[i - 1][1]);
 
     this.currentTime = ct;
+  };
+
+  me.timeSincePulse = function (ct) {
+    var lastTime;
+    if (ct > this.currentTime) {
+      lastTime = this.currentTime;
+    } else {
+      lastTime = this.currentTime - this.period;
+    }
+
+    return ct - lastTime;
   };
 
 }());
