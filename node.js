@@ -37,6 +37,7 @@
   me.tick = function (currentTime) {
     if (Math.abs(currentTime - this.currentTime) < 0.01) {
       this.pulseLocation = this.location;
+      this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
     }
 
     if (currentTime >= this.currentTime) {
@@ -53,7 +54,7 @@
     }
 
     this.oscillator = Audio.ctx.createOscillator();
-    this.oscillator.frequency.value = this.frequency;
+    this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
     this.oscillator.connect(this.gainer);
     this.oscillator.start(ct);
     this.oscillator.stop(ct + this.envelope[i - 1][1]);
