@@ -68,7 +68,7 @@
       _ctx.fill();
 
       _ctx.beginPath();
-      _ctx.arc(node.location.x, node.location.y, Math.floor(node.waveRadius * node.timeSincePulse(currentTime) / node.period + node.radius), 0, 2 * Math.PI);
+      _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, Math.floor(node.waveRadius * node.timeSincePulse(currentTime) / node.period + node.radius), 0, 2 * Math.PI);
       _ctx.strokeStyle = me.rgb(color, color, color);
       _ctx.lineWidth = 1;
       _ctx.stroke();

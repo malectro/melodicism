@@ -8,6 +8,7 @@
     Audio = root.Melodicism.Audio;
 
     this.location = {x: 100, y: 100};
+    this.pulseLocation = this.location;
     this.radius = 10;
     this.waveRadius = 200;
 
@@ -34,6 +35,10 @@
   };
 
   me.tick = function (currentTime) {
+    if (Math.abs(currentTime - this.currentTime) < 0.01) {
+      this.pulseLocation = this.location;
+    }
+
     if (currentTime >= this.currentTime) {
       this.nextTime = this.currentTime + this.period;
       this.pulse(this.nextTime);
@@ -57,14 +62,18 @@
   };
 
   me.timeSincePulse = function (ct) {
-    var lastTime;
+    var lastTime,
+        timeSince;
+
     if (ct > this.currentTime) {
       lastTime = this.currentTime;
     } else {
       lastTime = this.currentTime - this.period;
     }
 
-    return ct - lastTime;
+    timeSince = ct - lastTime;
+
+    return timeSince;
   };
 
   me.contains = function (point) {
