@@ -22,7 +22,7 @@
     root.Melodicism.Controller.listen('pauseplay', 'down', me.pausePlay);
 
     Audio = root.Melodicism.Audio;
-    _nodes = root.Melodicism.nodes;
+    _nodes = root.Melodicism.Nodes.nodes;
 
     _drawTime = _.now() / 1000;
   };
@@ -50,7 +50,7 @@
 
     var color;
 
-    _nodes = root.Melodicism.nodes;
+    _nodes = root.Melodicism.Nodes.nodes;
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
 

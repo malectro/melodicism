@@ -12,13 +12,13 @@
     MM.Canvas.init(canvas);
     MM.Audio.init();
 
-    MM.Node.init();
     MM.Nodes.init();
 
-    MM.nodes = [MM.Node];
-    MM.Nodes.add(MM.Node);
+    MM.Nodes.add(MM.Node.create());
 
-    MM.Node.start();
+    var node = _.create(MM.Node);
+    MM.Nodes.add(node.init('hey'));
+
     MM.Canvas.start()
     MM.Audio.start();
   };

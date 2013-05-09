@@ -4,6 +4,10 @@
 
   var Audio;
 
+  me.create = function () {
+    return _.create(this).init();
+  };
+
   me.init = function () {
     Audio = root.Melodicism.Audio;
 
@@ -26,6 +30,8 @@
 
     this.gainer = Audio.ctx.createGain();
     this.gainer.connect(Audio.master);
+
+    return this;
   };
 
   me.start = function (offset) {
@@ -58,6 +64,8 @@
     this.oscillator.connect(this.gainer);
     this.oscillator.start(ct);
     this.oscillator.stop(ct + this.envelope[i - 1][1]);
+
+    console.log(this.oscillator.frequency.value);
 
     this.currentTime = ct;
   };

@@ -20,7 +20,7 @@
   me.tick = function () {
     var currentTime = me.ctx.currentTime;
 
-    _nodes = root.Melodicism.nodes;
+    _nodes = root.Melodicism.Nodes.nodes;
 
     for (var i = 0, l = _nodes.length; i < l; i++) {
       _nodes[i].tick(currentTime);
@@ -51,13 +51,13 @@
   };
 
   me.createOscillator = function () {
-    if (!me.oscillator) {
-      me.oscillator = me.ctx.createOscillator();
-      me.oscillator.start = me.oscillator.start || me.oscillator.noteOn;
-      me.oscillator.stop = me.oscillator.start || me.oscillator.noteOff;
-    }
+    var oscillator = me.ctx.createOscillator();
 
-    return me.oscillator;
+    // this caused memory issues. need a better solution for safari
+    //oscillator.start = oscillator.start || oscillator.noteOn;
+    //oscillator.stop = oscillator.start || oscillator.noteOff;
+
+    return oscillator;
   };
 }());
 

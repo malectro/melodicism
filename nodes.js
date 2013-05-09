@@ -50,6 +50,7 @@
 
   me.add = function (node) {
     me.nodes.push(node);
+    node.start();
   };
 
   me.remove = function (node) {
