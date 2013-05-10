@@ -37,10 +37,12 @@
     };
 
   me.resize = function () {
-    _.extend(_canvas, {
+    me.size = {
       height: document.height,
       width: document.width
-    });
+    };
+
+    _.extend(_canvas, me.size);
   };
 
   me.draw = function () {
@@ -62,6 +64,14 @@
       _ctx.beginPath();
       _ctx.moveTo(0, j);
       _ctx.lineTo(_canvas.width, j);
+      _ctx.stroke();
+      _ctx.closePath();
+    }
+
+    for (var j = 50; j < _canvas.width; j += 50) {
+      _ctx.beginPath();
+      _ctx.moveTo(j, 0);
+      _ctx.lineTo(j, _canvas.height);
       _ctx.stroke();
       _ctx.closePath();
     }
