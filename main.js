@@ -15,9 +15,8 @@
     MM.Nodes.init();
 
     MM.Nodes.add(MM.Node.create());
-
-    var node = _.create(MM.Node);
-    MM.Nodes.add(node.init('hey'));
+    MM.Nodes.add(MM.Node.create());
+    MM.Nodes.add(MM.BounceNode.create());
 
     MM.Canvas.start()
     MM.Audio.start();
@@ -29,6 +28,7 @@
     'canvas',
     'audio',
     'node',
+    'bounce_node',
     'nodes'
   ], MM.init);
 }());

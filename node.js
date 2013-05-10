@@ -4,12 +4,20 @@
 
   var Audio;
 
+  me.color = {r: 100, g: 255, b: 100};
+  me.lowColor = {r: 0, g: 155, b: 0};
+
+  me.extend = function () {
+    return _.create(this);
+  };
+
   me.create = function () {
     return _.create(this).init();
   };
 
   me.init = function () {
-    Audio = root.Melodicism.Audio;
+    this.Audio = Audio = root.Melodicism.Audio;
+    this.siblings = root.Melodicism.Nodes.nodes;
 
     this.location = {x: 100, y: 100};
     this.pulseLocation = this.location;
@@ -65,8 +73,6 @@
     this.oscillator.start(ct);
     this.oscillator.stop(ct + this.envelope[i - 1][1]);
 
-    console.log(this.oscillator.frequency.value);
-
     this.currentTime = ct;
   };
 
@@ -85,9 +91,36 @@
     return timeSince;
   };
 
+  me.waveDistance = function (currentTime) {
+    return Math.floor(this.waveRadius * this.timeSincePulse(currentTime) / this.period + this.radius);
+  };
+
   me.contains = function (point) {
     var distance = Math.sqrt(Math.pow(this.location.x - point.x, 2) + Math.pow(this.location.y - point.y, 2));
     return distance < this.radius;
+  };
+
+  me.affects = function (node, currentTime) {
+    var distance = Math.sqrt(Math.pow(this.location.x - node.location.x, 2) + Math.pow(this.location.y - node.location.y, 2)),
+        waveDistance = this.waveDistance(currentTime);
+
+    return distance - node.radius < waveDistance && distance + node.radius > waveDistance;
+  };
+
+  me.currentColor = function () {
+    return {
+      r: Math.floor(this.gainer.gain.value * (this.color.r - this.lowColor.r) + this.lowColor.r),
+      g: Math.floor(this.gainer.gain.value * (this.color.g - this.lowColor.g) + this.lowColor.g),
+      b: Math.floor(this.gainer.gain.value * (this.color.b - this.lowColor.b) + this.lowColor.b)
+    };
+  };
+
+  me.waveColor = function () {
+    return {
+      r: Math.floor(this.gainer.gain.value * this.color.r),
+      g: Math.floor(this.gainer.gain.value * this.color.g),
+      b: Math.floor(this.gainer.gain.value * this.color.b)
+    };
   };
 
 }());

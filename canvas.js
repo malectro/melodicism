@@ -57,21 +57,19 @@
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
-      color = Math.floor(node.gainer.gain.value * 150 + 105);
-
-      _ctx.shadowColor = 'white';
+      _ctx.shadowColor = me.rgbOb(node.color);
       _ctx.shadowBlur = node.gainer.gain.value * 50;
 
       _ctx.beginPath();
       _ctx.arc(node.location.x, node.location.y, node.radius, 0, 2 * Math.PI);
-      _ctx.fillStyle = me.rgb(color, color, color);
+      _ctx.fillStyle = me.rgbOb(node.currentColor());
       _ctx.fill();
 
       color = Math.floor(node.gainer.gain.value * 255);
 
       _ctx.beginPath();
-      _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, Math.floor(node.waveRadius * node.timeSincePulse(currentTime) / node.period + node.radius), 0, 2 * Math.PI);
-      _ctx.strokeStyle = me.rgb(color, color, color);
+      _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, node.waveDistance(currentTime), 0, 2 * Math.PI);
+      _ctx.strokeStyle = me.rgbOb(node.waveColor());
       _ctx.lineWidth = 1;
       _ctx.stroke();
     }
@@ -102,6 +100,10 @@
 
   me.rgb = function (r, g, b) {
     return "rgb(" + r + "," + g + "," + b + ")";
+  };
+
+  me.rgbOb = function (ob) {
+    return me.rgb(ob.r, ob.g, ob.b);
   };
 
 }());
