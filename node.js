@@ -11,11 +11,11 @@
     return _.create(this);
   };
 
-  me.create = function () {
-    return _.create(this).init();
+  me.create = function (options) {
+    return _.create(this).init(options);
   };
 
-  me.init = function () {
+  me.init = function (options) {
     this.Audio = Audio = root.Melodicism.Audio;
     this.siblings = root.Melodicism.Nodes.nodes;
 
@@ -39,7 +39,7 @@
     this.gainer = Audio.ctx.createGain();
     this.gainer.connect(Audio.master);
 
-    return this;
+    return _.extend(this, options);
   };
 
   me.start = function (offset) {
