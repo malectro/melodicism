@@ -54,6 +54,18 @@
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
 
+    // draw grid
+    _ctx.shadowBlur = 0;
+    _ctx.strokeStyle = 'rgb(100, 100, 100)';
+    _ctx.lineWidth = 0.6;
+    for (var j = 50; j < _canvas.height; j += 50) {
+      _ctx.beginPath();
+      _ctx.moveTo(0, j);
+      _ctx.lineTo(_canvas.width, j);
+      _ctx.stroke();
+      _ctx.closePath();
+    }
+
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
