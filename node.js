@@ -101,10 +101,14 @@
   };
 
   me.affects = function (node, currentTime) {
-    var distance = Math.sqrt(Math.pow(this.location.x - node.location.x, 2) + Math.pow(this.location.y - node.location.y, 2)),
-        waveDistance = this.waveDistance(currentTime);
+    if (this.gainer.gain.value > 0) {
+      var distance = Math.sqrt(Math.pow(this.location.x - node.location.x, 2) + Math.pow(this.location.y - node.location.y, 2)),
+          waveDistance = this.waveDistance(currentTime);
 
-    return distance - node.radius < waveDistance && distance + node.radius > waveDistance;
+      return distance - node.radius < waveDistance && distance + node.radius > waveDistance;
+    }
+
+    return false;
   };
 
   me.currentColor = function () {
