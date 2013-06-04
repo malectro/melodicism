@@ -76,6 +76,7 @@
       _ctx.closePath();
     }
 
+    // draw nodes
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
@@ -83,7 +84,7 @@
       _ctx.shadowBlur = node.gainer.gain.value * 50;
 
       _ctx.beginPath();
-      _ctx.arc(node.location.x, node.location.y, node.radius, 0, 2 * Math.PI);
+      _ctx.arc(node.location.x, node.location.y, node.getRadius(), 0, 2 * Math.PI);
       _ctx.fillStyle = me.rgbOb(node.currentColor());
       _ctx.fill();
 

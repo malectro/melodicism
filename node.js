@@ -129,6 +129,14 @@
     };
   };
 
+  me.getRadius = function () {
+    if (this.active) {
+      return this.radius;
+    } else {
+      return this.radius * 1.2;
+    }
+  };
+
   me.startDrag = function () {
     this.active = false;
   };
