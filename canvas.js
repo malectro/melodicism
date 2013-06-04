@@ -94,12 +94,15 @@
         _ctx.lineWidth = 1;
         _ctx.stroke();
       } else if (node.waveType === 'area') {
+        _ctx.save();
+        _ctx.globalAlpha = node.waveGain(currentTime);
+        _ctx.translate(node.location.x, node.location.y);
         _ctx.fillStyle = me.radialGradient(node.waveColor(), node.getRadius(), node.waveDistance());
-        _ctx.globalAlpha = node.waveGain();
+        //_ctx.fillStyle = 'blue';
         _ctx.beginPath();
-        _ctx.arc(node.location.x, node.location.y, node.waveDistance(), 0, 2 * Math.PI);
+        _ctx.arc(0, 0, node.waveDistance(), 0, 2 * Math.PI);
         _ctx.fill();
-        _ctx.globalAlpha = 1.0;
+        _ctx.restore();
       }
 
       _ctx.beginPath();

@@ -26,7 +26,7 @@
     this.currentTime = 0;
     this.startTime = ct;
 
-    this.gainer.gain.setValueAtTime(0, ct);
+    this.gainer.gain.setValueAtTime(0.5, ct);
 
     this.oscillator = Audio.createOscillator();
     this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
@@ -47,6 +47,17 @@
 
   me.waveDistance = function () {
     return this.waveRadius;
+  };
+
+  // i should NOT have to recompute this
+  me.waveGain = function (currentTime) {
+    var gain = Math.sin((currentTime - this.startTime) * this.lfoFrequency * 2 * Math.PI);
+
+    if (gain < 0) {
+      gain = Math.abs(gain);
+    }
+
+    return gain;
   };
 
   me.tick = function (currentTime) {
