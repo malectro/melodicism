@@ -50,6 +50,12 @@
     this.pulse(this.startTime);
   };
 
+  me.stop = function (offset) {
+    var ct = Audio.ctx.currentTime + 0.1;
+    this.gainer.gain.linearRampToValueAtTime(0, ct);
+    this.gainer.gain.cancelScheduledValues(ct + 0.001);
+  };
+
   me.tick = function (currentTime) {
     if (this.active && Math.abs(currentTime - this.currentTime) < 0.01) {
       this.pulseLocation = this.location;
@@ -139,6 +145,7 @@
 
   me.startDrag = function () {
     this.active = false;
+    this.stop();
   };
 
   me.endDrag = function () {
