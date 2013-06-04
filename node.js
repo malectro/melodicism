@@ -39,6 +39,8 @@
     this.gainer = Audio.ctx.createGain();
     this.gainer.connect(Audio.master);
 
+    this.active = true;
+
     return _.extend(this, options);
   };
 
@@ -49,12 +51,12 @@
   };
 
   me.tick = function (currentTime) {
-    if (Math.abs(currentTime - this.currentTime) < 0.01) {
+    if (this.active && Math.abs(currentTime - this.currentTime) < 0.01) {
       this.pulseLocation = this.location;
       this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
     }
 
-    if (currentTime >= this.currentTime) {
+    if (this.active && currentTime >= this.currentTime) {
       this.nextTime = this.currentTime + this.period;
       this.pulse(this.nextTime);
     }
@@ -101,7 +103,7 @@
   };
 
   me.affects = function (node, currentTime) {
-    if (this.gainer.gain.value > 0) {
+    if (node.active && this.gainer.gain.value > 0) {
       var distance = Math.sqrt(Math.pow(this.location.x - node.location.x, 2) + Math.pow(this.location.y - node.location.y, 2)),
           waveDistance = this.waveDistance(currentTime);
 
@@ -125,6 +127,15 @@
       g: Math.floor(this.gainer.gain.value * this.color.g),
       b: Math.floor(this.gainer.gain.value * this.color.b)
     };
+  };
+
+  me.startDrag = function () {
+    this.active = false;
+  };
+
+  me.endDrag = function () {
+    this.active = true;
+    this.start();
   };
 
 }());

@@ -23,6 +23,7 @@
       node = me.nodes[i];
       if (node.contains(e)) {
         _touchingNode = node;
+        _touchingNode.startDrag();
         _startNodeLocation = node.location;
         _startDragLocation = e;
       }
@@ -35,7 +36,7 @@
         x: _startNodeLocation.x + e.x - _startDragLocation.x,
         y: _startNodeLocation.y + e.y - _startDragLocation.y
       };
-      _touchingNode.start();
+      _touchingNode.endDrag();
       _touchingNode = null;
     }
   };
