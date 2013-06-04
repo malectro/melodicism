@@ -6,7 +6,7 @@
   var Audio;
 
   me.color = {r: 100, g: 100, b: 255};
-  me.lowColor = {r: 0, g: 0, b: 155};
+  me.lowColor = {r: 50, g: 50, b: 155};
 
   me.start = function (offset) {
     this.currentTime = 0;

@@ -35,6 +35,7 @@
         x: _startNodeLocation.x + e.x - _startDragLocation.x,
         y: _startNodeLocation.y + e.y - _startDragLocation.y
       };
+      _touchingNode.start();
       _touchingNode = null;
     }
   };

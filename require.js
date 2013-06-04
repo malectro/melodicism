@@ -52,6 +52,7 @@ if (typeof require !== 'function') {
 
     require.loaded = function (id) {
       if (callbacks[id]) {
+        console.log(callbacks[id].count);
         callbacks[id].count--;
 
         if (callbacks[id].count < 1) {
