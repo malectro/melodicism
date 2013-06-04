@@ -15,9 +15,8 @@
     MM.Nodes.init();
 
     MM.Nodes.add(MM.Node.create());
-    MM.Nodes.add(MM.Node.create({location: {x: 500, y: 100}}));
     MM.Nodes.add(MM.BounceNode.create({location: {x: 400, y: 100}}));
-    MM.Nodes.add(MM.BounceNode.create({location: {x: 300, y: 200}}));
+    MM.Nodes.add(MM.DroneNode.create({location: {x: 200, y: 200}}));
 
     MM.Canvas.start()
     MM.Audio.start();
@@ -30,6 +29,7 @@
     'audio',
     'node',
     'bounce_node',
+    'drone_node',
     'nodes'
   ], MM.init);
 }());
