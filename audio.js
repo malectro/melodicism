@@ -11,8 +11,12 @@
     me.ctx = new webkitAudioContext();
     me.fixForOldVersions();
 
+    me.masterGain = me.ctx.createGain();
+    me.masterGain.gain.setValueAtTime(1.0, me.ctx.currentTime);
+    me.masterGain.connect(me.ctx.destination);
+
     me.master = me.ctx.createDynamicsCompressor();
-    me.master.connect(me.ctx.destination);
+    me.master.connect(me.masterGain);
 
     root.Melodicism.Controller.listen('pauseplay', 'down', me.pausePlay);
   };
@@ -30,11 +34,13 @@
   me.start = function () {
     _tickTime = _.now();
     _interval = setInterval(me.tick, 10);
+    me.masterGain.gain.linearRampToValueAtTime(1.0, me.ctx.currentTime + 0.1);
   };
 
   me.stop = function () {
     clearInterval(_interval);
     _interval = null;
+    me.masterGain.gain.linearRampToValueAtTime(0, me.ctx.currentTime + 0.1);
   };
 
   me.pausePlay = function () {

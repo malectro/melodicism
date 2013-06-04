@@ -12,6 +12,8 @@
   var _drawTime = 0;
   var _animating = false;
 
+  var _gradients = {};
+
   me.init = function (canvas) {
     me.canvas = _canvas = canvas;
     me.ctx = _ctx = canvas.getContext('2d');
@@ -83,18 +85,27 @@
       _ctx.shadowColor = me.rgbOb(node.color);
       _ctx.shadowBlur = node.gainer.gain.value * 50;
 
+      color = Math.floor(node.gainer.gain.value * 255);
+
+      if (node.waveType === 'rippler') {
+        _ctx.beginPath();
+        _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, node.waveDistance(currentTime), 0, 2 * Math.PI);
+        _ctx.strokeStyle = me.rgbOb(node.waveColor());
+        _ctx.lineWidth = 1;
+        _ctx.stroke();
+      } else if (node.waveType === 'area') {
+        _ctx.fillStyle = me.radialGradient(node.waveColor(), node.getRadius(), node.waveDistance());
+        _ctx.globalAlpha = node.waveGain();
+        _ctx.beginPath();
+        _ctx.arc(node.location.x, node.location.y, node.waveDistance(), 0, 2 * Math.PI);
+        _ctx.fill();
+        _ctx.globalAlpha = 1.0;
+      }
+
       _ctx.beginPath();
       _ctx.arc(node.location.x, node.location.y, node.getRadius(), 0, 2 * Math.PI);
       _ctx.fillStyle = me.rgbOb(node.currentColor());
       _ctx.fill();
-
-      color = Math.floor(node.gainer.gain.value * 255);
-
-      _ctx.beginPath();
-      _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, node.waveDistance(currentTime), 0, 2 * Math.PI);
-      _ctx.strokeStyle = me.rgbOb(node.waveColor());
-      _ctx.lineWidth = 1;
-      _ctx.stroke();
     }
 
     _drawTime = currentTime;
@@ -125,8 +136,31 @@
     return "rgb(" + r + "," + g + "," + b + ")";
   };
 
+  me.rgba = function (r, g, b, a) {
+    return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+  };
+
   me.rgbOb = function (ob) {
     return me.rgb(ob.r, ob.g, ob.b);
+  };
+
+  me.rgbaOb = function (ob) {
+    return me.rgba(ob.r, ob.g, ob.b, ob.a);
+  };
+
+  me.radialGradient = function (color, fromRadius, toRadius) {
+    var rgbColor = me.rgbOb(color);
+    var key = rgbColor + toRadius;
+    var gradient = _gradients[key];
+
+    if (!gradient) {
+      gradient = _ctx.createRadialGradient(0, 0, fromRadius, 0, 0, toRadius);
+      gradient.addColorStop(0, rgbColor);
+      gradient.addColorStop(1, me.rgbaOb(_.extend(color, {a: 0.0})));
+      _gradients[key] = gradient;
+    }
+
+    return gradient;
   };
 
 }());

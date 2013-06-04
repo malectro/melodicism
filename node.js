@@ -19,6 +19,8 @@
     this.Audio = Audio = root.Melodicism.Audio;
     this.siblings = root.Melodicism.Nodes.nodes;
 
+    this.waveType = 'rippler';
+
     this.location = {x: 100, y: 100};
     this.pulseLocation = this.location;
     this.radius = 10;
@@ -101,6 +103,10 @@
 
   me.waveDistance = function (currentTime) {
     return Math.floor(this.waveRadius * this.timeSincePulse(currentTime) / this.period + this.radius);
+  };
+
+  me.waveGain = function (currentTime) {
+    return this.gainer.gain.value;
   };
 
   me.contains = function (point) {
