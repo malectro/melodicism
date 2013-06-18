@@ -27,6 +27,7 @@
     this.startTime = ct;
 
     this.gainer.gain.setValueAtTime(0.5, ct);
+    //this.gainer.gain.value = 0.5;
 
     this.oscillator = Audio.createOscillator();
     this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);

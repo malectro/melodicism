@@ -14,9 +14,10 @@
 
     MM.Nodes.init();
 
-    MM.Nodes.add(MM.Node.create());
+    MM.Nodes.add(MM.SamplerNode.create({src: 'sounds/chord1.wav'}));
+
     MM.Nodes.add(MM.BounceNode.create({location: {x: 400, y: 100}}));
-    MM.Nodes.add(MM.DroneNode.create({location: {x: 200, y: 200}}));
+    //MM.Nodes.add(MM.DroneNode.create({location: {x: 200, y: 200}}));
 
     MM.Canvas.start()
     MM.Audio.start();
@@ -30,6 +31,7 @@
     'node',
     'bounce_node',
     'drone_node',
+    'sampler_node',
     'nodes'
   ], MM.init);
 }());
