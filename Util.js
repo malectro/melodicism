@@ -153,6 +153,32 @@
     Array.prototype.forEach.call(arr, func);
   };
 
+  /**
+   * toKeys
+   */
+  me.toKeys = function (arr, func) {
+    var map = {};
+
+    func = func || function () { return null };
+
+    Array.prototype.forEach.call(arr, function (val) {
+      map[val] = func(val);
+    });
+
+    return map;
+  };
+
+  /**
+   * toArray
+   */
+  me.toArray = function (ob) {
+    var arr = [];
+    for (var i in ob) {
+      arr.push(ob[i]);
+    }
+    return arr;
+  };
+
 
   /**
    * DOM METHODS

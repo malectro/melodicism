@@ -10,9 +10,15 @@
 
     Audio = this.Audio;
 
+    if (typeof options.src === 'string') {
+      this.srces = [options.src];
+    } else {
+      this.srces = options.src;
+    }
     this.onload = options.onload || function () {};
-    this.src = options.src;
     this.loaded = false;
+
+    this.period = 4;
 
     this.load();
 
@@ -21,24 +27,35 @@
 
   me.load = function () {
     var self = this;
-    var request = new XMLHttpRequest();
+    var count = self.srces.length;
 
-    request.open('GET', this.src, true);
-    request.responseType = 'arraybuffer';
+    self.buffers = _.toKeys(self.srces);
 
-    // Decode asynchronously
-    request.onload = function () {
-      Audio.ctx.decodeAudioData(request.response, function (buffer) {
-        self.buffer = buffer;
-        self.onload();
-        self.loaded = true;
-        console.log("Loaded " + self.src);
-      }, function () {
+    _.each(self.srces, function (src) {
+      var request = new XMLHttpRequest();
+      request.open('GET', src, true);
+      request.responseType = 'arraybuffer';
 
-      });
-    }
+      // Decode asynchronously
+      request.onload = function () {
+        Audio.ctx.decodeAudioData(request.response, function (buffer) {
+          self.buffers[src] = buffer;
+          count--;
+          console.log("Loaded " + src);
 
-    request.send();
+          if (count < 1) {
+            self.onload();
+            self.loaded = true;
+            self.bufferArray = _.toArray(self.buffers);
+            self.buffer = self.bufferArray[0];
+          }
+        }, function () {
+
+        });
+      }
+
+      request.send();
+    });
   };
 
   me.pulse = function (ct) {
@@ -59,6 +76,7 @@
   me.tick = function (currentTime) {
     if (this.active && Math.abs(currentTime - this.currentTime) < 0.01) {
       this.pulseLocation = this.location;
+      this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / 700)];
     }
 
     if (this.active && currentTime >= this.currentTime) {
