@@ -18,8 +18,6 @@
     this.onload = options.onload || function () {};
     this.loaded = false;
 
-    this.period = 4;
-
     this.load();
 
     return this;
@@ -83,6 +81,12 @@
       this.nextTime = this.currentTime + this.period;
       this.pulse(this.nextTime);
     }
+  };
+
+  me.stop = function (offset) {
+    var ct = Audio.ctx.currentTime + 0.1;
+    this.soup.stop.call(this, offset);
+    this.sampler.stop(ct + 0.001);
   };
 
 }());
