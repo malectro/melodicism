@@ -47,7 +47,9 @@
   };
 
   me.start = function (offset) {
-    this.startTime = Audio.ctx.currentTime;
+    offset = offset || 0;
+
+    this.startTime = Audio.ctx.currentTime + offset;
     this.nextTime = this.startTime;
     this.updateLocation();
     this.pulse(this.startTime);

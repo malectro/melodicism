@@ -50,9 +50,9 @@
     }
   };
 
-  me.add = function (node) {
+  me.add = function (node, at) {
     me.nodes.push(node);
-    node.start();
+    node.start(at);
   };
 
   me.remove = function (node) {

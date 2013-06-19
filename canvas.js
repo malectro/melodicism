@@ -97,10 +97,10 @@
         _ctx.save();
         _ctx.globalAlpha = node.waveGain(currentTime);
         _ctx.translate(node.location.x, node.location.y);
-        _ctx.fillStyle = me.radialGradient(node.waveColor(), node.getRadius(), node.waveDistance());
+        _ctx.fillStyle = me.radialGradient(node.waveColor(), node.getRadius(), node.waveDistance(currentTime));
         //_ctx.fillStyle = 'blue';
         _ctx.beginPath();
-        _ctx.arc(0, 0, node.waveDistance(), 0, 2 * Math.PI);
+        _ctx.arc(0, 0, node.waveDistance(currentTime), 0, 2 * Math.PI);
         _ctx.fill();
         _ctx.restore();
       }
