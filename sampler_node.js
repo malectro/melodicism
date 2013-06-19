@@ -17,6 +17,8 @@
     }
     this.onload = options.onload || function () {};
     this.loaded = false;
+    this.buffers = {};
+    this.bufferArray = [];
 
     this.load();
 
@@ -71,16 +73,9 @@
     this.sampler.start(ct);
   };
 
-  me.tick = function (currentTime) {
-    if (this.active && Math.abs(currentTime - this.currentTime) < 0.01) {
-      this.pulseLocation = this.location;
-      this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / 700)];
-    }
-
-    if (this.active && currentTime >= this.currentTime) {
-      this.nextTime = this.currentTime + this.period;
-      this.pulse(this.nextTime);
-    }
+  me.updateLocation = function () {
+    this.pulseLocation = this.location;
+    this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / 700)];
   };
 
   me.stop = function (offset) {

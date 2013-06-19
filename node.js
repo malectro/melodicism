@@ -49,6 +49,7 @@
   me.start = function (offset) {
     this.startTime = Audio.ctx.currentTime;
     this.nextTime = this.startTime;
+    this.updateLocation();
     this.pulse(this.startTime);
   };
 
@@ -58,10 +59,14 @@
     this.gainer.gain.cancelScheduledValues(ct + 0.001);
   };
 
+  me.updateLocation = function () {
+    this.pulseLocation = this.location;
+    this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
+  };
+
   me.tick = function (currentTime) {
     if (this.active && Math.abs(currentTime - this.currentTime) < 0.01) {
-      this.pulseLocation = this.location;
-      this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
+      this.updateLocation();
     }
 
     if (this.active && currentTime >= this.currentTime) {
