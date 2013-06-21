@@ -29,4 +29,8 @@ message {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 300;
   z-index: 2;
+  transition: opacity 500ms;
+}
+message.fade {
+  opacity: 0;
 }
