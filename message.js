@@ -43,7 +43,7 @@
     setTimeout(function () {
       document.body.removeChild(msgEl);
       self.next();
-    }, 500);
+    }, 200);
   };
 
   me.touchUp = function () {

@@ -12,8 +12,8 @@
     ]);
 
     root.Message.send('Hi, this is Melodicism.', 10000);
-    root.Message.send("It's a game.", 10000);
-    root.Message.send("About music.", 10000);
+    root.Message.send("It's a game", 10000);
+    root.Message.send("about music.", 10000);
   };
 
 }.call(Melodicism));

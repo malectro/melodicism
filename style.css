@@ -28,8 +28,9 @@ message {
   line-height: 150%;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 300;
+  text-align: center;
   z-index: 2;
-  transition: opacity 500ms;
+  transition: opacity 200ms;
 }
 message.fade {
   opacity: 0;
