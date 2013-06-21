@@ -16,23 +16,7 @@
     MM.Sounds.onload(MM.start);
     MM.Sounds.load();
 
-    MM.Nodes.add(MM.BounceNode.create({
-      src: ['chord1.wav', 'chord2.wav'],
-      period: 8
-    }), 0);
-    MM.Nodes.add(MM.BounceNode.create({
-      src: ['chord1.wav', 'chord2.wav'],
-      location: {x: 400, y:100},
-      period: 8
-    }), 4);
-    MM.Nodes.add(MM.SamplerNode.create({src: ['kick.wav'],
-      location: {x: 600, y:100},
-      period: 1,
-      color: {r: 255, g: 0, b: 0}
-    }), 0);
-
-    //MM.Nodes.add(MM.BounceNode.create({location: {x: 400, y: 100}}));
-    //MM.Nodes.add(MM.DroneNode.create({location: {x: 200, y: 300}}));
+    MM.puzzle = MM.Puzzle.create();
   };
 
   MM.start = function () {
@@ -50,7 +34,8 @@
     'bounce_node',
     'drone_node',
     'nodes',
-    'sounds'
+    'sounds',
+    'puzzle'
   ], MM.init);
 }());
 

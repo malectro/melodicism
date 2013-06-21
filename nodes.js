@@ -59,5 +59,21 @@
     me.nodes.splice(me.nodes.indexOf(node), 1);
   };
 
+  me.removeAll = function () {
+    _.each(me.nodes, function (node) {
+      node.destroy();
+    });
+
+    me.nodes = [];
+  };
+
+  me.reset = function (nodes) {
+    me.removeAll();
+
+    _.each(nodes, function (node) {
+      me.add(node, 0);
+    });
+  };
+
 }());
 

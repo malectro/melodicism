@@ -1,6 +1,6 @@
 (function () {
   var root = this;
-  var me = root.Melodicism.Node = {};
+  var me = root.Melodicism.Node = _.ob.extend();
 
   var Audio;
 

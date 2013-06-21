@@ -30,6 +30,26 @@
     return target;
   };
 
+  /**
+   * ob
+   * basic object with built-in create and extend methods
+   */
+  me.ob = (function () {
+    var ob = {};
+
+    ob.extend = function () {
+      return _.create(this);
+    };
+
+    ob.create = function (options) {
+      return _.create(this).init(options);
+    };
+
+    ob.init = function () {};
+
+    return ob;
+  }());
+
 
   /**
    * FUNCTION METHODS
