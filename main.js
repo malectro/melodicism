@@ -35,6 +35,7 @@
     'drone_node',
     'nodes',
     'sounds',
+    'message',
     'puzzle'
   ], MM.init);
 }());

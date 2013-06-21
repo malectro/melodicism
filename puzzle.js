@@ -1,20 +1,18 @@
 (function () {
   var root = this;
-  var me = root.Melodicism.Puzzle = _.ob.extend();
-
-  var Nodes;
+  var me = root.Puzzle = _.ob.extend();
 
   me.init = function () {
-    Nodes = root.Melodicism.Nodes;
-
-    Nodes.reset([
-      root.Melodicism.SamplerNode.create({src: ['kick.wav'],
+    root.Nodes.reset([
+      root.SamplerNode.create({src: ['kick.wav'],
         location: {x: 600, y:100},
         period: 1,
         color: {r: 255, g: 0, b: 0}
       })
     ]);
+
+    root.Message.send('Hi, this is Melodicism.', 10000);
   };
 
-}());
+}.call(Melodicism));
 
