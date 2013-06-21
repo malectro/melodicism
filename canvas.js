@@ -87,14 +87,15 @@
 
       color = Math.floor(node.gainer.gain.value * 255);
 
+      _ctx.save();
       if (node.waveType === 'rippler') {
         _ctx.beginPath();
+        _ctx.globalAlpha = node.waveGain(currentTime);
         _ctx.arc(node.pulseLocation.x, node.pulseLocation.y, node.waveDistance(currentTime), 0, 2 * Math.PI);
         _ctx.strokeStyle = me.rgbOb(node.waveColor());
         _ctx.lineWidth = 1;
         _ctx.stroke();
       } else if (node.waveType === 'area') {
-        _ctx.save();
         _ctx.globalAlpha = node.waveGain(currentTime);
         _ctx.translate(node.location.x, node.location.y);
         _ctx.fillStyle = me.radialGradient(node.waveColor(), node.getRadius(), node.waveDistance(currentTime));
@@ -102,8 +103,8 @@
         _ctx.beginPath();
         _ctx.arc(0, 0, node.waveDistance(currentTime), 0, 2 * Math.PI);
         _ctx.fill();
-        _ctx.restore();
       }
+      _ctx.restore();
 
       _ctx.beginPath();
       _ctx.arc(node.location.x, node.location.y, node.getRadius(), 0, 2 * Math.PI);

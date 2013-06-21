@@ -16,16 +16,14 @@
     MM.Sounds.onload(MM.start);
     MM.Sounds.load();
 
-    MM.Nodes.add(MM.SamplerNode.create({
+    MM.Nodes.add(MM.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
-      period: 8,
-      waveType: 'area'
+      period: 8
     }), 0);
-    MM.Nodes.add(MM.SamplerNode.create({
+    MM.Nodes.add(MM.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: 400, y:100},
-      period: 8,
-      waveType: 'area'
+      period: 8
     }), 4);
     MM.Nodes.add(MM.SamplerNode.create({src: ['kick.wav'],
       location: {x: 600, y:100},
@@ -48,9 +46,9 @@
     'canvas',
     'audio',
     'node',
+    'sampler_node',
     'bounce_node',
     'drone_node',
-    'sampler_node',
     'nodes',
     'sounds'
   ], MM.init);

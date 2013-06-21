@@ -1,7 +1,7 @@
 (function () {
 
   var root = this;
-  var me = root.Melodicism.BounceNode = root.Melodicism.Node.extend();
+  var me = root.Melodicism.BounceNode = root.Melodicism.SamplerNode.extend();
 
   var Audio;
 
@@ -20,7 +20,7 @@
         node = this.siblings[i];
 
         if (node !== this && node.affects(this, currentTime)) {
-          this.pulseLocation = this.location;
+          this.updateLocation();
           this.pulse(currentTime);
           l = 0;
         }

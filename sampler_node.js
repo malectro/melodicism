@@ -1,6 +1,7 @@
 (function () {
   var root = this;
-  var me = root.Melodicism.SamplerNode = root.Melodicism.Node.extend();
+  var soup = root.Melodicism.Node;
+  var me = root.Melodicism.SamplerNode = soup.extend();
 
   var Audio;
   var Sounds;
@@ -8,8 +9,8 @@
   me.init = function (options) {
     var self = this;
 
-    root.Melodicism.Node.init.call(this, options);
-    this.soup = root.Melodicism.Node;
+    soup.init.call(this, options);
+    this.soup = soup;
 
     Audio = this.Audio;
     Sounds = root.Melodicism.Sounds;
@@ -66,7 +67,10 @@
   me.stop = function (offset) {
     var ct = Audio.ctx.currentTime + 0.1;
     this.soup.stop.call(this, offset);
-    this.sampler.stop(ct + 0.001);
+
+    if (this.sampler) {
+      this.sampler.stop(ct + 0.001);
+    }
   };
 
   me.waveGain = function (currentTime) {
