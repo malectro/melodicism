@@ -1,7 +1,7 @@
 (function () {
   var root = this;
 
-  var me = root.Melodicism.Controller = {};
+  var me = root.Melodicism.Controller = _.ob.extend();
 
   var document = root.document;
   var _events = [

@@ -16,6 +16,8 @@
     MM.Sounds.onload(MM.start);
     MM.Sounds.load();
 
+    MM.Message.init();
+
     MM.puzzle = MM.Puzzle.create();
   };
 

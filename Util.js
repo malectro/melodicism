@@ -13,7 +13,7 @@
   me.create = function (parent, inits) {
     function f() {};
     f.prototype = parent;
-    return me.extend(new f, inits);
+    return me.extend(new f, {parent: parent}, inits);
   };
 
   /**
@@ -47,6 +47,14 @@
 
     ob.init = function () {};
 
+    ob.soup = function (method) {
+      this.parent[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    };
+
+    ob.bound = function (method) {
+      return me.bind(this[method], this);
+    };
+
     return ob;
   }());
 
@@ -54,6 +62,12 @@
   /**
    * FUNCTION METHODS
    */
+
+  me.bind = function (func, context) {
+    return function () {
+      func.apply(context, arguments);
+    };
+  };
 
   /**
    * debounce
@@ -186,6 +200,36 @@
     });
 
     return map;
+  };
+
+  /**
+   * search
+   */
+  me.search = function (arr, func) {
+    var index = -1;
+
+    _.each(arr, function (el, i) {
+      if (func(el)) {
+        index = i;
+      }
+    });
+
+    return index;
+  };
+
+  /**
+   * weed
+   */
+  me.weed = function (arr, func) {
+    var newArr = [];
+
+    _.each(arr, function (el) {
+      if (!func(el)) {
+        newArry.push(el);
+      }
+    });
+
+    return newArr;
   };
 
   /**
