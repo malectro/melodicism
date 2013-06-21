@@ -4,6 +4,7 @@
   var me = root.Melodicism.SamplerNode = soup.extend();
 
   var Audio;
+  var Canvas;
   var Sounds;
 
   me.init = function (options) {
@@ -13,6 +14,7 @@
     this.soup = soup;
 
     Audio = this.Audio;
+    Canvas = root.Melodicism.Canvas;
     Sounds = root.Melodicism.Sounds;
 
     if (typeof options.src === 'string') {
@@ -61,7 +63,8 @@
 
   me.updateLocation = function () {
     this.pulseLocation = this.location;
-    this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / 700)];
+    this.period = this.periodRange[1] - (this.location.x / Canvas.size.width) * (this.periodRange[1] - this.periodRange[0]);
+    this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / Canvas.size.height)];
   };
 
   me.stop = function (offset) {

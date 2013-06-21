@@ -33,6 +33,7 @@
     ];
 
     this.period = 2;
+    this.periodRange = [1, 4];
     this.startTime = 0;
     this.curentTime = 0;
     this.nextTime = 0;

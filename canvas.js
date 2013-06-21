@@ -44,6 +44,11 @@
       width: document.width
     };
 
+    me.center = {
+      x: me.size.width / 2,
+      y: me.size.height / 2
+    };
+
     _.extend(_canvas, me.size);
   };
 

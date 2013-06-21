@@ -5,8 +5,8 @@
   me.init = function () {
     root.Nodes.reset([
       root.SamplerNode.create({src: ['kick.wav'],
-        location: {x: 600, y:100},
-        period: 1,
+        location: {x: root.Canvas.center.x, y: 200},
+        periodRange: [0.5, 1.5],
         color: {r: 255, g: 0, b: 0}
       })
     ]);
