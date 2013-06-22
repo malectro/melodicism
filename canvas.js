@@ -5,6 +5,7 @@
 
   var Audio;
   var _nodes;
+  var _puzzle;
 
   var _canvas;
   var _ctx;
@@ -60,6 +61,7 @@
     var color;
 
     _nodes = root.Melodicism.Nodes.nodes;
+    _puzzle = root.Melodicism.puzzle;
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
 
@@ -81,6 +83,16 @@
       _ctx.lineTo(j, _canvas.height);
       _ctx.stroke();
       _ctx.closePath();
+    }
+
+    // draw highlights
+    if (_puzzle) {
+      var rect;
+      for (var i = 0, l = _puzzle.highlights.length; i < l; i++) {
+        rect = _puzzle.highlights[i];
+        _ctx.fillStyle = me.rgbOb(rect.color);
+        _ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+      }
     }
 
     // draw nodes

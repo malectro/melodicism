@@ -45,7 +45,9 @@
       return _.create(this).init(options);
     };
 
-    ob.init = function () {};
+    ob.init = function () {
+      return this;
+    };
 
     ob.soup = function (method) {
       this.parent[method].apply(this, Array.prototype.slice.call(arguments, 1));
