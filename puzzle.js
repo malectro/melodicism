@@ -37,7 +37,7 @@
 
   me.moveNode = function () {
     this.highlights = [
-      {x: (0.99 - 0.5) * Canvas.size.width, y: 0, w: 0.2 * Canvas.size.width, h: Canvas.size.height,
+      {x: (0.99 - 0.5) * Canvas.size.width, y: 0, w: 0.02 * Canvas.size.width, h: Canvas.size.height,
         color: {r: 150, g: 0, b: 0}
       }
     ];
