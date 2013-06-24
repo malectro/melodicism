@@ -72,18 +72,31 @@
     var nodeDiff;
     var kickDiff;
 
-    if (this.kick.period > 0.99 && this.period < 1.01) {
       nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
-      if (nodeDiff > 1.98 && nodeDiff < 2.02) {
-        kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick;
+        kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick.period;
         kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
-        if (kickDiff < 0.02) {
-          this._solved = true;
+
+    console.log(this.kick.period, nodeDiff, kickDiff);
+
+    if (this.kick.period > 0.90 && this.kick.period < 1.1) {
+      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
+      if (nodeDiff > 1.9 && nodeDiff < 2.1) {
+        kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick.period;
+        kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
+        if (kickDiff < 0.1) {
+          this.done();
         }
       }
     } else {
 
     }
+  };
+
+  me.done = function () {
+    this.disableControls();
+    root.Message.send("Woooo! You did it!");
+    this._solved = true;
+    this.next();
   };
 
   me.lower = function () {
