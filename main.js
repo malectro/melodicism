@@ -3,6 +3,10 @@
   var window = root.window;
   var document = root.document;
 
+  require = require || function (stuff, callback) {
+    callback();
+  };
+
   var MM = root.Melodicism = {};
 
   MM.init = function () {
