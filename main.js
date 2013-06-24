@@ -37,7 +37,7 @@
   };
 
   MM.loadNextPuzzle = function () {
-    MM.loadPuzzle(MM.puzzle.nextPuzzle, MM.puzzle.level + 1);
+    MM.loadPuzzle(MM.puzzle.level + 1);
   };
 
   require([

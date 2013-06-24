@@ -73,10 +73,10 @@
     if (_puzzle) {
       if (_puzzle.solved()) {
         var solvedSince = _.now() - _puzzle.solvedAt;
-        translation = -_.limit(solvedSince - 2000, 0, 1000);
+        translation = -_.limit(solvedSince - 1000, 0, 1000);
       } else {
         var bornSince = _.now() - _puzzle.bornAt;
-        translation = _.limit(2000 - bornSince, 0, 1000);
+        translation = _.limit(1000 - bornSince, 0, 1000);
       }
     }
 

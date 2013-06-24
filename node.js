@@ -21,6 +21,8 @@
 
     this.waveType = 'rippler';
 
+    this.AN = {};
+
     this.location = {x: 100, y: 100};
     this.pulseLocation = this.location;
     this.radius = 10;
@@ -39,12 +41,21 @@
     this.nextTime = 0;
     this.frequency = 196;
 
-    this.gainer = Audio.ctx.createGain();
+    this.gainer = this.AN.gainer = Audio.ctx.createGain();
     this.gainer.connect(Audio.master);
 
     this.active = true;
 
     return _.extend(this, options);
+  };
+
+  me.destroy = function () {
+    this.stop();
+
+    // not sure if this could cause popping
+    _.each(this.AN, function (audioNode) {
+      audioNode.disconnect();
+    });
   };
 
   me.start = function (offset) {
@@ -85,7 +96,7 @@
       this.gainer.gain.linearRampToValueAtTime(this.envelope[i][0], ct + this.envelope[i][1]);
     }
 
-    this.oscillator = Audio.createOscillator();
+    this.oscillator = this.AN.oscillator = Audio.createOscillator();
     this.oscillator.frequency.value = this.frequency * Math.pow(2, this.location.y / 700);
     this.oscillator.connect(this.gainer);
     this.oscillator.start(ct);

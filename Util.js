@@ -219,7 +219,15 @@
    * each
    */
   me.each = function (arr, func) {
-    Array.prototype.forEach.call(arr, func);
+    if (arr.length === +arr.length) {
+      Array.prototype.forEach.call(arr, func);
+    } else {
+      for (var i in arr) {
+        if (arr.hasOwnProperty(i)) {
+          func(arr[i], i);
+        }
+      }
+    }
   };
 
   /**

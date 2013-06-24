@@ -21,7 +21,6 @@
         node = this.siblings[i];
 
         if (node !== this && node.affects(this, currentTime)) {
-          console.log('hit');
           this.updateLocation();
           this.pulse(currentTime);
           l = 0;

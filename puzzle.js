@@ -4,6 +4,7 @@
   var Canvas;
 
   me.Config = [
+    '1-possibilities',
     '1-possibilities'
   ];
   me.Puzzles = {
@@ -35,7 +36,7 @@
 
   me.next = function () {
     this.ready = true;
-    setTimeout(root.loadNextPuzzle, 3000);
+    setTimeout(root.loadNextPuzzle, 2000);
   };
 
 }.call(Melodicism));

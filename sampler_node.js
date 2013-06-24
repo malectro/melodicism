@@ -55,7 +55,7 @@
 
     this.gainer.gain.setValueAtTime(1, ct);
 
-    this.sampler = Audio.ctx.createBufferSource();
+    this.sampler = this.AN.sampler = Audio.ctx.createBufferSource();
     this.sampler.buffer = this.buffer;
     this.sampler.connect(this.gainer);
     this.sampler.start(ct);
