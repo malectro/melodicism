@@ -18,7 +18,7 @@
     });
 
     root.Nodes.reset([
-      this.node1
+      this.node1,
     ]);
 
     root.Controller.listen('touch', 'up', this.bound('touchUp'));
@@ -30,12 +30,21 @@
 
     this.step = 1;
     this.ready = false;
+    this.bornAt = _.now();
 
     return this;
   };
 
   me.solved = function () {
-    return this.ready && this.node1.period < 1.01 && this.node1.period > 0.99;
+    if (!this._solved) {
+      this._solved = this.ready && this.node1.period < 1.01 && this.node1.period > 0.99;
+
+      if (this._solved) {
+        this.solvedAt = _.now();
+      }
+    }
+
+    return this._solved;
   };
 
   me.touchUp = function () {

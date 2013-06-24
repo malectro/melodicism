@@ -149,6 +149,39 @@
     return number > 0 && ((number - 1) & number === 0);
   }
 
+  /**
+   * max
+   */
+  me.max = function (a, b) {
+    if (a > b) {
+      return a;
+    }
+    return b;
+  };
+
+  /**
+   * min
+   */
+  me.min = function (a, b) {
+    if (a < b) {
+      return a;
+    }
+    return b;
+  };
+
+  /**
+   * limit
+   */
+  me.limit = function (a, l, h) {
+    if (a < l) {
+      return l;
+    }
+    if (a > h) {
+      return h;
+    }
+    return a;
+  };
+
 
   /**
    * STRING METHODS

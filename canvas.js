@@ -57,6 +57,8 @@
     // draw the shit!
     var currentTime = Audio.ctx.currentTime;
     var node;
+    var translation = 0;
+    var gridTrans = 50;
 
     var color;
 
@@ -65,10 +67,24 @@
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
 
+    _ctx.save();
+
     // draw highlights
     if (_puzzle) {
+      if (_puzzle.solved()) {
+        var solvedSince = _.now() - _puzzle.solvedAt;
+        translation = -_.limit(solvedSince - 2000, 0, 1000);
+      } else {
+        var bornSince = _.now() - _puzzle.bornAt;
+        translation = _.limit(2000 - bornSince, 0, 2000);
+      }
+    }
+
+    if (_puzzle) {
       var rect;
+      _ctx.save();
       _ctx.shadowBlur = 0;
+      _ctx.translate(translation, 0);
 
       for (var i = 0, l = _puzzle.highlights.length; i < l; i++) {
         rect = _puzzle.highlights[i];
@@ -76,15 +92,17 @@
         _ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
       }
 
-      if (_puzzle.solved()) {
-
-      }
+      _ctx.restore();
     }
 
     // draw grid
+    _ctx.save();
     _ctx.shadowBlur = 0;
     _ctx.strokeStyle = 'rgb(100, 100, 100)';
     _ctx.lineWidth = 0.6;
+
+    gridTrans = (gridTrans + parseInt(translation / 2, 10)) % gridTrans;
+
     for (var j = 50; j < _canvas.height; j += 50) {
       _ctx.beginPath();
       _ctx.moveTo(0, j);
@@ -93,15 +111,18 @@
       _ctx.closePath();
     }
 
-    for (var j = 50; j < _canvas.width; j += 50) {
+    for (var j = gridTrans; j < _canvas.width; j += 50) {
       _ctx.beginPath();
       _ctx.moveTo(j, 0);
       _ctx.lineTo(j, _canvas.height);
       _ctx.stroke();
       _ctx.closePath();
     }
+    _ctx.restore();
 
     // draw nodes
+    _ctx.save();
+    _ctx.translate(translation, 0);
     for (var i = 0, l = _nodes.length; i < l; i++) {
       node = _nodes[i];
 
@@ -134,6 +155,9 @@
       _ctx.fillStyle = me.rgbOb(node.currentColor());
       _ctx.fill();
     }
+    _ctx.restore();
+
+    _ctx.restore();
 
     _drawTime = currentTime;
 
