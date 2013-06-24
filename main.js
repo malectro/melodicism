@@ -3,9 +3,11 @@
   var window = root.window;
   var document = root.document;
 
-  require = require || function (stuff, callback) {
-    callback();
-  };
+  if (typeof require === 'undefined') {
+    require = function (stuff, callback) {
+      setTimeout(callback, 0);
+    };
+  }
 
   var MM = root.Melodicism = {};
 
