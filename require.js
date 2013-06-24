@@ -28,7 +28,6 @@ if (typeof require !== 'function') {
 
       for (var i = 0, l = paths.length; i < l; i++) {
         path = paths[i];
-        script = document.createElement('script');
 
         if (typeof path === 'object') {
           script.type = path[1];
@@ -38,13 +37,21 @@ if (typeof require !== 'function') {
         if (path.indexOf('.') < 0) {
           path += '.js';
         }
-        script.src = path;
 
-        script.onload = function () {
+        if (!required[path]) {
+          script = document.createElement('script');
+
+          script.src = path;
+
+          script.onload = function () {
+            required[path] = true;
+            require.loaded(id);
+          };
+
+          firstScript.parentNode.insertBefore(script, firstScript);
+        } else {
           require.loaded(id);
-        };
-
-        firstScript.parentNode.insertBefore(script, firstScript);
+        }
       }
 
       return id;

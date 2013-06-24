@@ -76,7 +76,7 @@
         translation = -_.limit(solvedSince - 2000, 0, 1000);
       } else {
         var bornSince = _.now() - _puzzle.bornAt;
-        translation = _.limit(2000 - bornSince, 0, 2000);
+        translation = _.limit(2000 - bornSince, 0, 1000);
       }
     }
 

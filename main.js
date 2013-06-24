@@ -18,12 +18,26 @@
 
     MM.Message.init();
 
-    MM.puzzle = MM.Puzzle.create();
+    MM.puzzles = [];
+    MM.loadPuzzle(0);
   };
 
   MM.start = function () {
     MM.Canvas.start()
     MM.Audio.start();
+  };
+
+  MM.loadPuzzle = function (number) {
+    var name = MM.Puzzle.Config[number];
+
+    require('puzzles/' + name, function () {
+      MM.puzzle = MM.Puzzle.Puzzles[name].create();
+      MM.puzzle.level = number;
+    });
+  };
+
+  MM.loadNextPuzzle = function () {
+    MM.loadPuzzle(MM.puzzle.nextPuzzle, MM.puzzle.level + 1);
   };
 
   require([
