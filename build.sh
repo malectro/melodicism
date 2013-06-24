@@ -1,0 +1,1 @@
+java -jar compiler/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --js Util.js main.js eventer.js controller.js canvas.js audio.js node.js sampler_nodes.js bounce_node.js drone_node.js nodes.js sounds.js message.js puzzle.js puzzles/* --js_output_file melodicism.min.js
