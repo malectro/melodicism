@@ -11,7 +11,7 @@
   };
 
   me.send = function (text, time, callback) {
-    var msg = {text: text, time: time, callback: callback || function (){}};
+    var msg = {text: text, time: time || 10000, callback: callback || function (){}};
     this.messages.push(msg);
 
     if (!this.active) {
@@ -34,9 +34,10 @@
   };
 
   me.pop = function () {
-    if (this.active) {
+    var msgEl = this.active;
+
+    if (msgEl) {
       var self = this;
-      var msgEl = this.active;
       msgEl.className = 'fade';
 
       clearTimeout(this.timeout);

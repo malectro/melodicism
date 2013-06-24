@@ -21,12 +21,15 @@
       this.node1
     ]);
 
+    root.Controller.listen('touch', 'up', this.bound('touchUp'));
+
     root.Message.send('Hi, this is Melodicism.', 10000);
     root.Message.send("It's a game", 10000);
     root.Message.send("about music.", 10000);
-    root.Message.send("Move the node left and right to change its tempo.", 10000, me.bound('moveNode'));
+    root.Message.send("Move the <emph>node</emph> left and right to change its tempo.", 10000, this.bound('moveNode'));
 
-    this.ready = true;
+    this.step = 1;
+    this.ready = false;
 
     return this;
   };
@@ -35,12 +38,38 @@
     return this.ready && this.node1.period < 1.01 && this.node1.period > 0.99;
   };
 
+  me.touchUp = function () {
+    if (this.node1.location.y !== 200 && this.step === 2) {
+      this.moveNode2();
+    } else if (this.step === 4 && this.node1.period > 0.99 && this.node1.period < 1.01) {
+      this.done();
+    }
+  };
+
   me.moveNode = function () {
+    this.step = 2;
+  };
+
+  me.moveNode2 = function () {
+    this.step = 3;
+    root.Message.send("Pretty neat, huh?", 10000);
+    root.Message.send("The beat we're going for isn't to fast or too slow.", 10000, this.bound('moveNode3'));
+  };
+
+  me.moveNode3 = function () {
+    this.step = 4;
+    root.Message.send("Try moving it here.", 10000);
     this.highlights = [
       {x: (0.99 - 0.5) * Canvas.size.width, y: 0, w: 0.02 * Canvas.size.width, h: Canvas.size.height,
-        color: {r: 150, g: 0, b: 0}
+        color: {r: 100, g: 0, b: 0}
       }
     ];
+  };
+
+  me.done = function () {
+    root.Message.send("Groovy. You got it.");
+    this.step = 5;
+    this.ready = true;
   };
 
 }.call(Melodicism));

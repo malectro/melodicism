@@ -65,6 +65,22 @@
 
     _ctx.clearRect(0, 0, 100000000, 100000000);
 
+    // draw highlights
+    if (_puzzle) {
+      var rect;
+      _ctx.shadowBlur = 0;
+
+      for (var i = 0, l = _puzzle.highlights.length; i < l; i++) {
+        rect = _puzzle.highlights[i];
+        _ctx.fillStyle = me.rgbOb(rect.color);
+        _ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+      }
+
+      if (_puzzle.solved()) {
+
+      }
+    }
+
     // draw grid
     _ctx.shadowBlur = 0;
     _ctx.strokeStyle = 'rgb(100, 100, 100)';
@@ -83,16 +99,6 @@
       _ctx.lineTo(j, _canvas.height);
       _ctx.stroke();
       _ctx.closePath();
-    }
-
-    // draw highlights
-    if (_puzzle) {
-      var rect;
-      for (var i = 0, l = _puzzle.highlights.length; i < l; i++) {
-        rect = _puzzle.highlights[i];
-        _ctx.fillStyle = me.rgbOb(rect.color);
-        _ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-      }
     }
 
     // draw nodes

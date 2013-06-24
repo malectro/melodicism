@@ -16,16 +16,18 @@
   };
 
   me.touchDown = function (e) {
-    var node;
-    // intersection check
-    // if there's a future problem with perf, we can do some sort of indexing
-    for (var i = 0, l = me.nodes.length; i < l; i++) {
-      node = me.nodes[i];
-      if (node.contains(e)) {
-        _touchingNode = node;
-        _touchingNode.startDrag();
-        _startNodeLocation = node.location;
-        _startDragLocation = e;
+    if (root.Melodicism.puzzle && !root.Melodicism.puzzle.solved()) {
+      var node;
+      // intersection check
+      // if there's a future problem with perf, we can do some sort of indexing
+      for (var i = 0, l = me.nodes.length; i < l; i++) {
+        node = me.nodes[i];
+        if (node.contains(e)) {
+          _touchingNode = node;
+          _touchingNode.startDrag();
+          _startNodeLocation = node.location;
+          _startDragLocation = e;
+        }
       }
     }
   };

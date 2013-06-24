@@ -35,3 +35,6 @@ message {
 message.fade {
   opacity: 0;
 }
+  emph {
+    color: rgb(255, 0, 0);
+  }
