@@ -38,10 +38,6 @@
     root.Nodes.reset([
     ]);
 
-    this.addNodes();
-    this.enableControls();
-    return this;
-
     root.Message.send("Now that you've got the hang of things, let's see if you can construct a song.", 10000);
     root.Message.send("I'll play it for you first.", null, this.bound('playSong'));
 
