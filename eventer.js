@@ -35,7 +35,7 @@
     if (events) {
       for (var i = 0, l = events.length; i < l; i++) {
         context = events[i].context || root;
-        events[i].apply(context, Array.prototype.slice.call(arguments, 1));
+        events[i].callback.apply(context, Array.prototype.slice.call(arguments, 1));
       }
     }
   };

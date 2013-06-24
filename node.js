@@ -106,6 +106,8 @@
     this.oscillator.stop(ct + this.envelope[i - 1][1]);
 
     this.currentTime = ct;
+
+    this.fire('pulse');
   };
 
   me.timeSincePulse = function (ct) {

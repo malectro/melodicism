@@ -59,6 +59,8 @@
     this.sampler.buffer = this.buffer;
     this.sampler.connect(this.gainer);
     this.sampler.start(ct);
+
+    this.fire('pulse');
   };
 
   me.updateLocation = function () {

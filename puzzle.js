@@ -40,5 +40,13 @@
     setTimeout(root.loadNextPuzzle, 2000);
   };
 
+  me.enableControls = function () {
+    root.Nodes.activate();
+  };
+
+  me.disableControls = function () {
+    root.Nodes.deactivate();
+  };
+
 }.call(Melodicism));
 

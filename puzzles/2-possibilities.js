@@ -78,11 +78,12 @@
   };
 
   me.step4 = function () {
+    this.node2.on('pulse', this.step5, this);
     root.Nodes.add(this.node2);
   };
 
-  me.enableControls = function () {
-    root.Nodes.activate();
+  me.step5 = function () {
+    root.Message.send("Nice!");
   };
 
   me.moveNode = function () {
