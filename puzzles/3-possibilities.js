@@ -38,6 +38,10 @@
     root.Nodes.reset([
     ]);
 
+    this.addNodes();
+    this.enableControls();
+    return this;
+
     root.Message.send("Now that you've got the hang of things, let's see if you can construct a song.", 10000);
     root.Message.send("I'll play it for you first.", null, this.bound('playSong'));
 
@@ -59,6 +63,27 @@
     root.Nodes.reset([
       this.node1, this.node2, this.kick
     ]);
+
+    this.node1.on('pulse', this.bound('nodePulsed'));
+    this.node2.on('pulse', this.bound('nodePulsed'));
+  };
+
+  me.nodePulsed = function () {
+    var nodeDiff;
+    var kickDiff;
+
+    if (this.kick.period > 0.99 && this.period < 1.01) {
+      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
+      if (nodeDiff > 1.98 && nodeDiff < 2.02) {
+        kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick;
+        kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
+        if (kickDiff < 0.02) {
+          this._solved = true;
+        }
+      }
+    } else {
+
+    }
   };
 
   me.lower = function () {

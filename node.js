@@ -142,7 +142,7 @@
   };
 
   me.affects = function (node, currentTime) {
-    if (node.active && this.gainer.gain.value > 0) {
+    if (node.active && this.waveGain() > 0.2) {
       var distance = Math.sqrt(Math.pow(this.location.x - node.location.x, 2) + Math.pow(this.location.y - node.location.y, 2)),
           waveDistance = this.waveDistance(currentTime);
 

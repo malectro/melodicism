@@ -4,9 +4,9 @@
   var Canvas;
 
   me.Config = [
-    '2-possibilities',
-    '1-possibilities',
     '3-possibilities',
+    '1-possibilities',
+    '2-possibilities',
   ];
   me.Puzzles = {
   };
@@ -29,7 +29,7 @@
 
   me.solved = function () {
     if (!this._solved) {
-      this._solved = true;
+      this._solved = false;
     }
 
     return this._solved;
