@@ -21,7 +21,7 @@
 
     this.node2 = root.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
-      location: {x: root.Canvas.center.x - 10, y: 200},
+      location: {x: root.Canvas.center.x + 300, y: 200},
       periodRange: [2, 6],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
@@ -29,7 +29,7 @@
 
     this.kick = root.SamplerNode.create({
       src: ['kick.wav'],
-      location: {x: root.Canvas.center.x - 10, y: 200},
+      location: {x: root.Canvas.center.x - 300, y: 200},
       periodRange: [0.5, 1.5],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
@@ -46,6 +46,19 @@
 
   me.playSong = function () {
     root.Sounds.playClip('possibilities.mp3', 0, 23.5, 11);
+    setTimeout(this.bound('step2'), 11000);
+  };
+
+  me.step2 = function () {
+    root.Message.send("If you want to hear it again, you can touch the arrow at the top right.");
+    root.Message.send("Anyway, here are the nodes you'll need to complete the song.", null, this.bound('addNodes'));
+    root.Message.send("Good luck!", null, this.bound('enableControls'));
+  };
+
+  me.addNodes = function () {
+    root.Nodes.reset([
+      this.node1, this.node2, this.kick
+    ]);
   };
 
   me.lower = function () {

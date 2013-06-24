@@ -85,7 +85,7 @@
     clip.connect(gainer);
     clip.start(when, offset, duration);
 
-    gainer.gain.linearRampToValueAtTime(1, ct + 0.2);
+    gainer.gain.linearRampToValueAtTime(1, ct + 0.4);
     gainer.gain.linearRampToValueAtTime(1, ct + duration - 1);
     gainer.gain.linearRampToValueAtTime(0, ct + duration);
   };
