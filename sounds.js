@@ -8,6 +8,9 @@
     'chord2.wav',
     'kick.wav'
   ];
+  me.clips = [
+    'possibilities.mp3'
+  ];
   me.buffers = {};
   me.bufferArray = [];
 
@@ -34,15 +37,20 @@
   };
 
   me.load = function () {
+    this.loadSrces(this.srces, 'sounds');
+    this.loadSrces(this.clips, 'clips');
+  };
+
+  me.loadSrces = function (srces, type) {
     var self = this;
-    var count = self.srces.length;
+    var count = srces.length;
 
-    self.buffers = _.toKeys(self.srces);
-
-    _.each(self.srces, function (src) {
+    _.each(srces, function (src) {
       var request = new XMLHttpRequest();
-      request.open('GET', 'sounds/' + src, true);
+      request.open('GET', type + '/' + src, true);
       request.responseType = 'arraybuffer';
+
+      self.buffers[src] = null;
 
       // Decode asynchronously
       request.onload = function () {
@@ -63,6 +71,13 @@
 
       request.send();
     });
+  };
+
+  me.playClip = function (name, when, offset, duration) {
+    var clip = root.Melodicism.Audio.ctx.createBufferSource();
+    clip.buffer = this.buffers[name];
+    clip.connect(root.Melodicism.Audio.ctx.destination);
+    clip.start(when, offset, duration);
   };
 
 }());

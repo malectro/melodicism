@@ -46,7 +46,7 @@
     self.buffer = self.bufferArray[0];
   };
 
-  me.pulse = function (ct) {
+  me.pulse = function (ct, offset, duration) {
     this.currentTime = ct;
 
     if (!this.loaded) {
@@ -58,7 +58,7 @@
     this.sampler = this.AN.sampler = Audio.ctx.createBufferSource();
     this.sampler.buffer = this.buffer;
     this.sampler.connect(this.gainer);
-    this.sampler.start(ct);
+    this.sampler.start(ct, offset, duration);
 
     this.fire('pulse');
   };
