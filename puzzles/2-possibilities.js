@@ -1,6 +1,6 @@
 (function () {
   var root = this;
-  var name = '1-possibilities';
+  var name = '2-possibilities';
 
   var me = root.Puzzle.Puzzles[name] = root.Puzzle.extend();
 
@@ -12,11 +12,11 @@
     Canvas = root.Canvas;
 
     this.node1 = root.SamplerNode.create({
-      src: ['kick.wav'],
+      src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
-      periodRange: [0.5, 1.5],
-      color: {r: 255, g: 0, b: 0},
-      lowColor: {r: 200, g: 0, b: 0}
+      periodRange: [2, 6],
+      color: {r: 0, g: 255, b: 0},
+      lowColor: {r: 0, g: 200, b: 0}
     });
 
     root.Nodes.reset([
@@ -25,12 +25,15 @@
 
     root.Controller.listen('touch', 'up', this.bound('touchUp'));
 
-    root.Message.send('Hi, this is Melodicism.', 10000);
-    root.Message.send("It's a game", 10000);
-    root.Message.send("about music.", 10000);
-    root.Message.send("Move the <emph>node</emph> left and right to change its tempo.", 10000, this.bound('moveNode'));
+    root.Message.send("Now let's add some melody.", 10000);
+    root.Message.send("This node can play two chords.", 10000, this.bound('lower'));
+    root.Message.send("Try moving it to the lower region and hear how it changes.", 10000);
 
     return this;
+  };
+
+  me.lower = function () {
+    this.step = 2;
   };
 
   me.solved = function () {
@@ -46,11 +49,15 @@
   };
 
   me.touchUp = function () {
-    if (this.node1.location.y !== 200 && this.step === 2) {
-      this.moveNode2();
-    } else if (this.step === 4 && this.node1.period > 0.99 && this.node1.period < 1.01) {
-      this.done();
+    if (this.step === 2 && this.node1.buffer === this.node1.bufferArray[1]) {
+      this.step3();
     }
+  };
+
+  me.step3 = function () {
+    this.step = 3;
+
+    root.Message.send("Good!", 10000);
   };
 
   me.moveNode = function () {

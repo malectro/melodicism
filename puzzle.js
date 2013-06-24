@@ -4,8 +4,9 @@
   var Canvas;
 
   me.Config = [
+    '2-possibilities',
     '1-possibilities',
-    '1-possibilities'
+    '2-possibilities'
   ];
   me.Puzzles = {
   };
