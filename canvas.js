@@ -127,9 +127,9 @@
       node = _nodes[i];
 
       _ctx.shadowColor = me.rgbOb(node.color);
-      _ctx.shadowBlur = node.gainer.gain.value * 50;
+      _ctx.shadowBlur = node.waveGain(currentTime) * 50;
 
-      color = Math.floor(node.gainer.gain.value * 255);
+      color = Math.floor(node.waveGain(currentTime) * 255);
 
       _ctx.save();
       if (node.waveType === 'rippler') {

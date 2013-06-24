@@ -79,7 +79,10 @@
   me.waveGain = function (currentTime) {
     //hack
     // should probably use an audio analyzer here
-    return 1 - this.timeSincePulse(currentTime) / this.period;
+    if (currentTime) {
+      this.ct = currentTime;
+    }
+    return _.max(1 - this.timeSincePulse(this.ct) / this.period, 0);
   };
 
 }());

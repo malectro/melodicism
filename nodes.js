@@ -7,6 +7,8 @@
   var _startDragLocation = null;
   var _startNodeLocation = null;
 
+  me.active = false;
+
   me.nodes = [];
 
   me.init = function () {
@@ -15,8 +17,16 @@
     root.Melodicism.Controller.listen('move', 'down', me.drag);
   };
 
+  me.activate = function () {
+    me.active = true;
+  };
+
+  me.deactivate = function () {
+    me.active = false;
+  };
+
   me.touchDown = function (e) {
-    if (root.Melodicism.puzzle && !root.Melodicism.puzzle.solved()) {
+    if (me.active) {
       var node;
       // intersection check
       // if there's a future problem with perf, we can do some sort of indexing

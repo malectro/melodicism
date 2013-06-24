@@ -27,7 +27,7 @@
 
     root.Message.send('Hi, this is Melodicism.', 10000);
     root.Message.send("It's a game", 10000);
-    root.Message.send("about music.", 10000);
+    root.Message.send("about music.", 10000, this.bound('enableControls'));
     root.Message.send("Move the <emph>node</emph> left and right to change its tempo.", 10000, this.bound('moveNode'));
 
     return this;
@@ -53,6 +53,10 @@
     }
   };
 
+  me.enableControls = function () {
+    root.Nodes.activate();
+  };
+
   me.moveNode = function () {
     this.step = 2;
   };
@@ -75,6 +79,7 @@
 
   me.done = function () {
     root.Message.send("Groovy. You got it.");
+    root.Nodes.deactivate();
     this.step = 5;
     this.next();
   };

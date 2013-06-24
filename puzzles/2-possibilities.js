@@ -16,7 +16,15 @@
       location: {x: root.Canvas.center.x - 10, y: 200},
       periodRange: [2, 6],
       color: {r: 0, g: 255, b: 0},
-      lowColor: {r: 0, g: 200, b: 0}
+      lowColor: {r: 0, g: 100, b: 0}
+    });
+
+    this.node2 = root.BounceNode.create({
+      src: ['chord1.wav', 'chord2.wav'],
+      location: {x: root.Canvas.center.x - 10, y: 200},
+      periodRange: [2, 6],
+      color: {r: 0, g: 255, b: 0},
+      lowColor: {r: 0, g: 100, b: 0}
     });
 
     root.Nodes.reset([
@@ -33,6 +41,7 @@
   };
 
   me.lower = function () {
+    root.Nodes.activate();
     this.step = 2;
   };
 
@@ -57,7 +66,23 @@
   me.step3 = function () {
     this.step = 3;
 
-    root.Message.send("Good!", 10000);
+    root.Nodes.deactivate();
+
+    root.Message.send("Good!");
+    root.Message.send("It's not the most interesting melody, though.");
+    root.Message.send("We're still only playing one note.", null, this.bound('step4'));
+    root.Message.send("Here's a second node.");
+    root.Message.send("Oops. My bad.");
+    root.Message.send("It looks like it's low on energy.", null, this.bound('enableControls'));
+    root.Message.send("I wonder how we could we can get it some juice...");
+  };
+
+  me.step4 = function () {
+    root.Nodes.add(this.node2);
+  };
+
+  me.enableControls = function () {
+    root.Nodes.activate();
   };
 
   me.moveNode = function () {

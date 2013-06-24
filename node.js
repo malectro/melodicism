@@ -38,6 +38,7 @@
     this.periodRange = [1, 4];
     this.startTime = 0;
     this.curentTime = 0;
+    this.ct = 0;
     this.nextTime = 0;
     this.frequency = 196;
 
@@ -125,6 +126,9 @@
   };
 
   me.waveGain = function (currentTime) {
+    if (currentTime) {
+      this.ct = currentTime;
+    }
     return this.gainer.gain.value;
   };
 
@@ -145,18 +149,20 @@
   };
 
   me.currentColor = function () {
+    var waveGain = this.waveGain();
     return {
-      r: Math.floor(this.gainer.gain.value * (this.color.r - this.lowColor.r) + this.lowColor.r),
-      g: Math.floor(this.gainer.gain.value * (this.color.g - this.lowColor.g) + this.lowColor.g),
-      b: Math.floor(this.gainer.gain.value * (this.color.b - this.lowColor.b) + this.lowColor.b)
+      r: Math.floor(waveGain * (this.color.r - this.lowColor.r) + this.lowColor.r),
+      g: Math.floor(waveGain * (this.color.g - this.lowColor.g) + this.lowColor.g),
+      b: Math.floor(waveGain * (this.color.b - this.lowColor.b) + this.lowColor.b)
     };
   };
 
   me.waveColor = function () {
+    var waveGain = this.waveGain();
     return {
-      r: Math.floor(this.gainer.gain.value * this.color.r),
-      g: Math.floor(this.gainer.gain.value * this.color.g),
-      b: Math.floor(this.gainer.gain.value * this.color.b)
+      r: Math.floor(waveGain * this.color.r),
+      g: Math.floor(waveGain * this.color.g),
+      b: Math.floor(waveGain * this.color.b)
     };
   };
 
