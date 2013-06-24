@@ -1,6 +1,6 @@
 (function () {
   var root = this;
-  var me = root.Melodicism.Node = _.ob.extend();
+  var me = root.Melodicism.Node = root.Melodicism.Eventer.extend();
 
   var Audio;
 
@@ -16,6 +16,8 @@
   };
 
   me.init = function (options) {
+    root.Melodicism.Eventer.init.call(this);
+
     this.Audio = Audio = root.Melodicism.Audio;
     this.siblings = root.Melodicism.Nodes.nodes;
 

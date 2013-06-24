@@ -42,6 +42,7 @@
 
   require([
     'Util',
+    'eventer',
     'controller',
     'canvas',
     'audio',
