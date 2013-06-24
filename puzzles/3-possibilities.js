@@ -45,7 +45,7 @@
   };
 
   me.playSong = function () {
-    root.Sounds.playClip('possibilities.mp3', 0, 23, 10);
+    root.Sounds.playClip('possibilities.mp3', 0, 23.5, 11);
   };
 
   me.lower = function () {

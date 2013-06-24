@@ -74,10 +74,20 @@
   };
 
   me.playClip = function (name, when, offset, duration) {
+    var Audio = root.Melodicism.Audio;
+    var ct = Audio.ctx.currentTime;
+    var gainer = root.Melodicism.Audio.ctx.createGain();
+    gainer.gain.value = 0;
+    gainer.connect(root.Melodicism.Audio.ctx.destination);
+
     var clip = root.Melodicism.Audio.ctx.createBufferSource();
     clip.buffer = this.buffers[name];
-    clip.connect(root.Melodicism.Audio.ctx.destination);
+    clip.connect(gainer);
     clip.start(when, offset, duration);
+
+    gainer.gain.linearRampToValueAtTime(1, ct + 0.2);
+    gainer.gain.linearRampToValueAtTime(1, ct + duration - 1);
+    gainer.gain.linearRampToValueAtTime(0, ct + duration);
   };
 
 }());
