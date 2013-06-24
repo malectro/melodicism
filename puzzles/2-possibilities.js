@@ -43,15 +43,16 @@
   me.lower = function () {
     root.Nodes.activate();
     this.step = 2;
+    this.highlights = [
+      {x: 0, y: Canvas.center.y, w: Canvas.size.width, h: Canvas.size.height / 2,
+        color: {r: 0, g: 50, b: 0}
+      }
+    ];
   };
 
   me.solved = function () {
     if (!this._solved) {
-      this._solved = this.ready && this.node1.period < 1.01 && this.node1.period > 0.99;
-
-      if (this._solved) {
-        this.solvedAt = _.now();
-      }
+      this._solved = this.ready;
     }
 
     return this._solved;
@@ -67,6 +68,8 @@
     this.step = 3;
 
     root.Nodes.deactivate();
+
+    this.highlights = [];
 
     root.Message.send("Good!");
     root.Message.send("It's not the most interesting melody, though.");
@@ -84,31 +87,11 @@
 
   me.step5 = function () {
     root.Message.send("Nice!");
-  };
-
-  me.moveNode = function () {
-    this.step = 2;
-  };
-
-  me.moveNode2 = function () {
-    this.step = 3;
-    root.Message.send("Pretty neat, huh?", 10000);
-    root.Message.send("The beat we're going for isn't to fast or too slow.", 10000, this.bound('moveNode3'));
-  };
-
-  me.moveNode3 = function () {
-    this.step = 4;
-    root.Message.send("Try moving it here.", 10000);
-    this.highlights = [
-      {x: (0.99 - 0.5) * Canvas.size.width, y: 0, w: 0.02 * Canvas.size.width, h: Canvas.size.height,
-        color: {r: 100, g: 0, b: 0}
-      }
-    ];
+    root.Message.send("I'm guessing we'll see more low-energy nodes in the coming puzzles.", null, this.bound('done'));
+    this.node2.off('pulse', this.step5);
   };
 
   me.done = function () {
-    root.Message.send("Groovy. You got it.");
-    this.step = 5;
     this.next();
   };
 }.call(Melodicism));
