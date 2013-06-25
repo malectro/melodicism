@@ -35,6 +35,11 @@
     return this._solved;
   };
 
+  me.setSolved = function () {
+    this._solved = true;
+    this.solvedAt = _.now();
+  };
+
   me.next = function () {
     this.ready = true;
     setTimeout(root.loadNextPuzzle, 2000);

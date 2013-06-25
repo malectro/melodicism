@@ -14,7 +14,7 @@
     this.node1 = root.SamplerNode.create({
       src: ['kick.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
-      periodRange: [0.5, 1.5],
+      periodRange: [0.5, 2],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });
@@ -35,7 +35,7 @@
 
   me.solved = function () {
     if (!this._solved) {
-      this._solved = this.ready && this.node1.period < 1.01 && this.node1.period > 0.99;
+      this._solved = this.ready && this.node1.period < 1.26 && this.node1.period > 1.46;
 
       if (this._solved) {
         this.solvedAt = _.now();
@@ -48,7 +48,7 @@
   me.touchUp = function () {
     if (this.node1.location.y !== 200 && this.step === 2) {
       this.moveNode2();
-    } else if (this.step === 4 && this.node1.period > 0.99 && this.node1.period < 1.01) {
+    } else if (this.step === 4 && this.node1.period > 1.26 && this.node1.period < 1.46) {
       this.done();
     }
   };
@@ -64,20 +64,22 @@
   me.moveNode2 = function () {
     this.step = 3;
     root.Message.send("Pretty neat, huh?", 10000);
-    root.Message.send("The beat we're going for isn't to fast or too slow.", 10000, this.bound('moveNode3'));
+    root.Message.send("Notice how the beat starts playing at the exact time you drop the node.");
+    root.Message.send("The beat we're going for isn't too fast or too slow.", 10000, this.bound('moveNode3'));
   };
 
   me.moveNode3 = function () {
     this.step = 4;
     root.Message.send("Try moving it here.", 10000);
     this.highlights = [
-      {x: (0.99 - 0.5) * Canvas.size.width, y: 0, w: 0.02 * Canvas.size.width, h: Canvas.size.height,
+      {x: (2 - 1.46) * Canvas.size.width / 1.5, y: 0, w: 0.2 * Canvas.size.width / 1.5, h: Canvas.size.height,
         color: {r: 100, g: 0, b: 0}
       }
     ];
   };
 
   me.done = function () {
+    this.highlights = [];
     root.Message.send("Groovy. You got it.");
     root.Nodes.deactivate();
     this.step = 5;

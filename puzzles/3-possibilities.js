@@ -2,6 +2,8 @@
   var root = this;
   var name = '3-possibilities';
 
+  // tempo = 1.367
+
   var me = root.Puzzle.Puzzles[name] = root.Puzzle.extend();
 
   me.name = name;
@@ -74,7 +76,7 @@
 
     console.log(this.kick.period, nodeDiff, kickDiff);
 
-    if (this.kick.period > 0.90 && this.kick.period < 1.1) {
+    if (this.kick.period > 1.26 && this.kick.period < 1.46) {
       nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
       if (nodeDiff > 1.9 && nodeDiff < 2.1) {
         kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick.period;
@@ -91,7 +93,7 @@
   me.done = function () {
     this.disableControls();
     root.Message.send("Woooo! You did it!");
-    this._solved = true;
+    this.setSolved();
     this.next();
   };
 
