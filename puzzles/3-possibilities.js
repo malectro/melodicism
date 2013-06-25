@@ -3,6 +3,7 @@
   var name = '3-possibilities';
 
   // tempo = 1.367
+  // measure = 5.468
 
   var me = root.Puzzle.Puzzles[name] = root.Puzzle.extend();
 
@@ -13,10 +14,12 @@
 
     Canvas = root.Canvas;
 
-    this.node1 = root.BounceNode.create({
+    this.beat = 1.367;
+
+    this.node1 = root.SamplerNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
-      periodRange: [2, 6],
+      periodRange: [5, 15],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -24,7 +27,7 @@
     this.node2 = root.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x + 300, y: 200},
-      periodRange: [2, 6],
+      periodRange: [5, 15],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -32,7 +35,7 @@
     this.kick = root.SamplerNode.create({
       src: ['kick.wav'],
       location: {x: root.Canvas.center.x - 300, y: 200},
-      periodRange: [0.5, 1.5],
+      periodRange: [0.5, 2],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });
@@ -70,19 +73,28 @@
     var nodeDiff;
     var kickDiff;
 
-      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
+      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime) / this.kick.period;
         kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick.period;
         kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
 
     console.log(this.kick.period, nodeDiff, kickDiff);
 
-    if (this.kick.period > 1.26 && this.kick.period < 1.46) {
-      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime);
-      if (nodeDiff > 1.9 && nodeDiff < 2.1) {
+    // beat is close to the tempo beat
+    if (this.kick.period > this.beat - 0.1 && this.kick.period < this.beat + 0.1) {
+      nodeDiff = Math.abs(this.node1.currentTime - this.node2.currentTime) / this.kick.period;
+
+      // chords are 4 beats apart
+      if (nodeDiff > 3.9 && nodeDiff < 4.1) {
         kickDiff = Math.abs(this.node1.currentTime - this.kick.startTime) / this.kick.period;
         kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
+
+        // at least one of the nodes falls on the kick
         if (kickDiff < 0.1) {
-          this.done();
+
+          // nodes are playing different chords
+          if (this.node1.buffer !== this.node2.buffer) {
+            this.done();
+          }
         }
       }
     } else {
