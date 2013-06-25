@@ -25,6 +25,11 @@
     this.step = 1;
     this.bornAt = _.now();
 
+    // this is small memory leak
+    // fix later
+    root.Controller.listen('touch', 'play', this.bound('playClip'));
+    root.Controller.listen('touch', 'pause', this.bound('pauseClip'));
+
     return this;
   };
 
@@ -52,6 +57,14 @@
 
   me.disableControls = function () {
     root.Nodes.deactivate();
+  };
+
+  me.playClip = function () {
+
+  };
+
+  me.pauseClip = function () {
+
   };
 
 }.call(Melodicism));

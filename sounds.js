@@ -1,7 +1,7 @@
 (function () {
   var root = this;
 
-  var me = root.Melodicism.Sounds = {};
+  var me = root.Melodicism.Sounds = _.ob.extend();
 
   me.srces = [
     'chord1.wav',
@@ -15,6 +15,12 @@
   me.bufferArray = [];
 
   me.onloads = [];
+
+  me.init = function () {
+    this.gainer = root.Melodicism.Audio.ctx.createGain();
+    this.clip = root.Melodicism.Audio.ctx.createBufferSource();
+    this.clipTimeout = 0;
+  };
 
   me.onload = function (func) {
     if (me.loaded) {
@@ -76,18 +82,37 @@
   me.playClip = function (name, when, offset, duration) {
     var Audio = root.Melodicism.Audio;
     var ct = Audio.ctx.currentTime;
-    var gainer = root.Melodicism.Audio.ctx.createGain();
+    var gainer = this.gainer;
+
+    this.pauseClip();
+    root.Melodicism.Controller.setPlayButtonState('pause');
+
     gainer.gain.value = 0;
     gainer.connect(root.Melodicism.Audio.ctx.destination);
 
-    var clip = root.Melodicism.Audio.ctx.createBufferSource();
+    root.Melodicism.Audio.silenceNodes();
+
+    var clip = this.clip = root.Melodicism.Audio.ctx.createBufferSource();
     clip.buffer = this.buffers[name];
     clip.connect(gainer);
     clip.start(when, offset, duration);
+    this.clipTimeout = setTimeout(me.bound('pauseClip'), duration * 1000);
 
     gainer.gain.linearRampToValueAtTime(1, ct + 0.4);
     gainer.gain.linearRampToValueAtTime(1, ct + duration - 1);
     gainer.gain.linearRampToValueAtTime(0, ct + duration);
+  };
+
+  me.pauseClip = function () {
+    var time = root.Melodicism.Audio.ctx.currentTime + 0.2;
+
+    clearTimeout(this.clipTimeout);
+
+    this.gainer.gain.linearRampToValueAtTime(0, time);
+    this.clip.stop(time);
+
+    root.Melodicism.Controller.setPlayButtonState('play');
+    root.Melodicism.Audio.soundNodes();
   };
 
 }());

@@ -19,6 +19,7 @@
     MM.Audio.init();
 
     MM.Nodes.init();
+    MM.Sounds.init();
     MM.Sounds.onload(MM.start);
     MM.Sounds.load();
 

@@ -56,6 +56,18 @@
     }
   }
 
+  function _touchedPlay(e) {
+    if (this.className === 'pause') {
+      this.className = 'play';
+      me.fire('touch', 'pause', e);
+    } else {
+      this.className = 'pause';
+      me.fire('touch', 'play', e);
+    }
+
+    e.stopPropagation();
+  }
+
   me.fire = function (eventName, state, e) {
     var event = _eventHash[eventName];
     if (event) {
@@ -80,11 +92,17 @@
     }
   };
 
+  me.setPlayButtonState = function (state) {
+    document.getElementById('pauseplay').className = state;
+  };
+
   me.init = function () {
     _events.forEach(function (event) {
       _eventHash[event] = {
         down: [],
-        up: []
+        up: [],
+        pause: [],
+        play: []
       };
     });
 
@@ -93,6 +111,7 @@
     document.body.addEventListener('mousedown', _mousedown);
     document.body.addEventListener('mousemove', _mousemove);
     document.body.addEventListener('mouseup', _mouseup);
+    document.getElementById('pauseplay').addEventListener('mousedown', _touchedPlay);
   };
 
 }());

@@ -50,8 +50,16 @@
   };
 
   me.playSong = function () {
-    root.Sounds.playClip('possibilities.mp3', 0, 23.5, 11);
+    this.playClip();
     setTimeout(this.bound('step2'), 11000);
+  };
+
+  me.playClip = function () {
+    root.Sounds.playClip('possibilities.mp3', 0, 23.5, 11);
+  };
+
+  me.pauseClip = function () {
+    root.Sounds.pauseClip();
   };
 
   me.step2 = function () {

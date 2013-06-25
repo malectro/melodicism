@@ -34,13 +34,21 @@
   me.start = function () {
     _tickTime = _.now();
     _interval = setInterval(me.tick, 10);
-    me.masterGain.gain.linearRampToValueAtTime(1.0, me.ctx.currentTime + 0.1);
+    me.masterGain.gain.linearRampToValueAtTime(0.6, me.ctx.currentTime + 0.2);
   };
 
   me.stop = function () {
     clearInterval(_interval);
     _interval = null;
-    me.masterGain.gain.linearRampToValueAtTime(0, me.ctx.currentTime + 0.1);
+    me.masterGain.gain.linearRampToValueAtTime(0, me.ctx.currentTime + 0.2);
+  };
+
+  me.soundNodes = function () {
+    me.masterGain.gain.linearRampToValueAtTime(0.6, me.ctx.currentTime + 0.2);
+  };
+
+  me.silenceNodes = function () {
+    me.masterGain.gain.linearRampToValueAtTime(0, me.ctx.currentTime + 0.2);
   };
 
   me.pausePlay = function () {
