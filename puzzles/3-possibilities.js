@@ -14,12 +14,12 @@
 
     Canvas = root.Canvas;
 
-    this.beat = 1.367;
+    this.beat = 0.8202;
 
     this.node1 = root.SamplerNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
-      periodRange: [5, 15],
+      periodRange: [3, 9],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -27,7 +27,7 @@
     this.node2 = root.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x + 300, y: 200},
-      periodRange: [5, 15],
+      periodRange: [3, 9],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -35,7 +35,7 @@
     this.kick = root.SamplerNode.create({
       src: ['kick.wav'],
       location: {x: root.Canvas.center.x - 300, y: 200},
-      periodRange: [0.5, 2],
+      periodRange: [0.2, 1.7],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });
