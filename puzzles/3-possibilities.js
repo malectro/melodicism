@@ -63,6 +63,7 @@
   };
 
   me.step2 = function () {
+    root.Controller.setPlayButtonState('play');
     root.Message.send("If you want to hear it again, you can touch the arrow at the top right.");
     root.Message.send("Anyway, here are the nodes you'll need to complete the song.", null, this.bound('addNodes'));
     root.Message.send("Good luck!", null, this.bound('enableControls'));

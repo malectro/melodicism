@@ -29,6 +29,7 @@
     // fix later
     root.Controller.listen('touch', 'play', this.bound('playClip'));
     root.Controller.listen('touch', 'pause', this.bound('pauseClip'));
+    root.Controller.setPlayButtonState('hide');
 
     return this;
   };

@@ -56,3 +56,6 @@ message.fade {
 #pauseplay:hover {
   opacity: 1;
 }
+#pauseplay.hide {
+  display: none;
+}
