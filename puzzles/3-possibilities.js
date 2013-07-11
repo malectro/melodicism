@@ -113,28 +113,17 @@
   };
 
   me.done = function () {
+    var self = this;
+
     this.disableControls();
     root.Message.send("Woooo! You did it!");
-    this.setSolved();
-    this.next();
-  };
 
-  me.lower = function () {
-    root.Nodes.activate();
-    this.step = 2;
-    this.highlights = [
-      {x: 0, y: Canvas.center.y, w: Canvas.size.width, h: Canvas.size.height / 2,
-        color: {r: 0, g: 50, b: 0}
-      }
-    ];
-  };
+    self.ready = true;
 
-  me.solved = function () {
-    if (!this._solved) {
-      this._solved = this.ready;
-    }
-
-    return this._solved;
+    setTimeout(function () {
+      self.setSolved();
+      self.next();
+    }, 5000);
   };
 
   me.touchUp = function () {
