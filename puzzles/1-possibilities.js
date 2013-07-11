@@ -15,7 +15,8 @@
       src: ['kick.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
       periodRange: [0.5, 2],
-      periodValues: [0.5, 1, 2],
+      beatSeconds: 0.8202,
+      beatSteps: [0.5, 1, 2],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });

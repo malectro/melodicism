@@ -19,7 +19,8 @@
     this.node1 = root.SamplerNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
-      periodRange: [3, 9],
+      beatSeconds: this.beat,
+      beatSteps: [4, 6, 8],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -27,7 +28,6 @@
     this.node2 = root.BounceNode.create({
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x + 300, y: 200},
-      periodRange: [3, 9],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -35,7 +35,8 @@
     this.kick = root.SamplerNode.create({
       src: ['kick.wav'],
       location: {x: root.Canvas.center.x - 300, y: 200},
-      periodRange: [0.2, 1.7],
+      beatSeconds: this.beat,
+      beatSteps: [0.5, 1, 2],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });
@@ -98,7 +99,7 @@
         kickDiff = Math.abs(kickDiff - Math.round(kickDiff));
 
         // at least one of the nodes falls on the kick
-        if (kickDiff < 0.1) {
+        if (kickDiff < 0.25) {
 
           // nodes are playing different chords
           if (this.node1.buffer !== this.node2.buffer) {

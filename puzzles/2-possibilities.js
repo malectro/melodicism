@@ -15,6 +15,7 @@
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
       periodRange: [2, 6],
+      periodSteps: [2, 4, 6],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });
@@ -23,6 +24,7 @@
       src: ['chord1.wav', 'chord2.wav'],
       location: {x: root.Canvas.center.x - 10, y: 200},
       periodRange: [2, 6],
+      periodSteps: [2, 4, 6],
       color: {r: 0, g: 255, b: 0},
       lowColor: {r: 0, g: 100, b: 0}
     });

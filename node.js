@@ -16,6 +16,8 @@
   };
 
   me.init = function (options) {
+    var self = this;
+
     root.Melodicism.Eventer.init.call(this);
 
     this.Audio = Audio = root.Melodicism.Audio;
@@ -49,6 +51,13 @@
     this.gainer.connect(Audio.master);
 
     this.active = true;
+
+    if (options.beatSteps && options.beatSeconds) {
+      this.periodSteps = [];
+      _.each(options.beatSteps, function (beat, i) {
+        self.periodSteps[i] = beat * options.beatSeconds;
+      });
+    }
 
     return _.extend(this, options);
   };
