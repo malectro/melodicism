@@ -65,7 +65,8 @@
 
   me.updateLocation = function () {
     this.pulseLocation = this.location;
-    this.period = this.periodRange[1] - (this.location.x / Canvas.size.width) * (this.periodRange[1] - this.periodRange[0]);
+    //this.period = this.periodRange[1] - (this.location.x / Canvas.size.width) * (this.periodRange[1] - this.periodRange[0]);
+    this.period = this.periodSteps[this.periodSteps.length - Math.floor(this.periodSteps.length * this.location.x / Canvas.size.width) - 1];
     this.buffer = this.bufferArray[Math.floor(this.bufferArray.length * this.location.y / Canvas.size.height)];
   };
 
