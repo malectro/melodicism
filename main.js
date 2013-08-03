@@ -61,6 +61,6 @@
     'sounds',
     'message',
     'puzzle'
-  ], MM.init);
+  ], true, MM.init);
 }());
 

@@ -13,12 +13,24 @@ if (typeof require !== 'function') {
         callbacks = {},
         id = 0;
 
-    function require(paths, callback) {
+    function require(paths, ordered, callback) {
+      var originalCallback = callback;
+      var cutPaths;
+
       if (typeof paths === 'string') {
         paths = [paths];
       }
 
-      callback = callback || function () {};
+      if (ordered && paths.length > 1) {
+        cutPaths = paths;
+        paths = [paths.shift()];
+
+        callback = function () {
+          require(cutPaths, true, originalCallback);
+        };
+      } else {
+        callback = callback || function () {};
+      }
 
       var firstScript = document.getElementsByTagName('script')[0],
           script, path;
