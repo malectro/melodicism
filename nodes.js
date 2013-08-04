@@ -44,16 +44,21 @@
 
   me.touchUp = function (e) {
     if (_touchingNode) {
+      console.log(e);
+      // doesn't work for some reason
+      /*
       _touchingNode.location = {
         x: _startNodeLocation.x + e.x - _startDragLocation.x,
         y: _startNodeLocation.y + e.y - _startDragLocation.y
       };
+      */
       _touchingNode.endDrag();
       _touchingNode = null;
     }
   };
 
   me.drag = function (e) {
+    console.log(e);
     if (_touchingNode) {
       _touchingNode.location = {
         x: _startNodeLocation.x + e.x - _startDragLocation.x,

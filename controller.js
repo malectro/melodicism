@@ -34,7 +34,15 @@
     }
   }
 
+  function _standardizeEvent(e) {
+    if (e.pageX) {
+      e.x = e.pageX;
+      e.y = e.pageY;
+    }
+  }
+
   function _mousedown(e) {
+    _standardizeEvent(e);
     if (me.fire('touch', 'down', e)) {
       e.preventDefault();
     }
@@ -42,6 +50,7 @@
   }
 
   function _mouseup(e) {
+    _standardizeEvent(e);
     if (me.fire('touch', 'up', e)) {
       e.preventDefault();
     }
@@ -49,6 +58,7 @@
   }
 
   function _mousemove(e) {
+    _standardizeEvent(e);
     if (_touching && me.fire('move', 'down', e)) {
       e.preventDefault();
     } else if (me.fire('move', 'up', e)) {
