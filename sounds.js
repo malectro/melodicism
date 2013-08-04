@@ -95,7 +95,12 @@
     var clip = this.clip = root.Melodicism.Audio.ctx.createBufferSource();
     clip.buffer = this.buffers[name];
     clip.connect(gainer);
-    clip.start(when, offset, duration);
+
+    if (clip.start) {
+      clip.start(when, offset, duration);
+    } else {
+      clip.noteOn(when, offset, duration);
+    }
     this.clipTimeout = setTimeout(me.bound('pauseClip'), duration * 1000);
 
     gainer.gain.linearRampToValueAtTime(1, ct + 0.4);
@@ -109,7 +114,11 @@
     clearTimeout(this.clipTimeout);
 
     this.gainer.gain.linearRampToValueAtTime(0, time);
-    this.clip.stop(time);
+    if (this.clip.stop) {
+      this.clip.stop(time);
+    } else {
+      this.clip.noteOff(time);
+    }
 
     root.Melodicism.Controller.setPlayButtonState('play');
     root.Melodicism.Audio.soundNodes();

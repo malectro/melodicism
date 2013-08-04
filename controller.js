@@ -110,15 +110,15 @@
     document.body.addEventListener('keyup', _keyup);
 
     if ('ontouchstart' in document.documentElement) {
-      document.body.addEventListener('mousedown', _mousedown);
-      document.body.addEventListener('mousemove', _mousemove);
-      document.body.addEventListener('mouseup', _mouseup);
-      document.getElementById('pauseplay').addEventListener('mousedown', _touchedPlay);
-    } else {
       document.body.addEventListener('touchstart', _mousedown);
       document.body.addEventListener('touchmove', _mousemove);
       document.body.addEventListener('touchend', _mouseup);
       document.getElementById('pauseplay').addEventListener('touchstart', _touchedPlay);
+    } else {
+      document.body.addEventListener('mousedown', _mousedown);
+      document.body.addEventListener('mousemove', _mousemove);
+      document.body.addEventListener('mouseup', _mouseup);
+      document.getElementById('pauseplay').addEventListener('mousedown', _touchedPlay);
     }
   };
 

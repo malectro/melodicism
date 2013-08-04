@@ -19,6 +19,21 @@
     me.master.connect(me.masterGain);
 
     root.Melodicism.Controller.listen('pauseplay', 'down', me.pausePlay);
+    root.Melodicism.Controller.listen('touch', 'down', me.enableAudio);
+  };
+
+  me.enableAudio = function () {
+    var node = me.createOscillator();
+
+    if (node.noteOn) {
+      node.connect(me.ctx.destination);
+      node.noteOn(0);
+      node.noteOff(0);
+    }
+
+    _.defer(function () {
+      root.Melodicism.Controller.forget('touch', 'down', me.enableAudio);
+    });
   };
 
   me.tick = function () {

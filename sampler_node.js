@@ -58,7 +58,12 @@
     this.sampler = this.AN.sampler = Audio.ctx.createBufferSource();
     this.sampler.buffer = this.buffer;
     this.sampler.connect(this.gainer);
-    this.sampler.start(ct);
+
+    if (this.sampler.start) {
+      this.sampler.start(ct);
+    } else {
+      this.sampler.noteOn(ct);
+    }
 
     this.fire('pulse');
   };
@@ -75,7 +80,11 @@
     this.soup.stop.call(this, offset);
 
     if (this.sampler) {
-      this.sampler.stop(ct + 0.001);
+      if (this.sampler.stop) {
+        this.sampler.stop(ct + 0.001);
+      } else {
+        this.sampler.noteOff(ct + 0.001);
+      }
     }
   };
 

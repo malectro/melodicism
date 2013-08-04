@@ -37,7 +37,7 @@
   MM.loadPuzzle = function (number) {
     var name = MM.Puzzle.Config[number];
 
-    require('puzzles/' + name, function () {
+    require('puzzles/' + name, true, function () {
       MM.puzzle = MM.Puzzle.Puzzles[name].create();
       MM.puzzle.level = number;
     });

@@ -72,6 +72,14 @@
   };
 
   /**
+   * defer
+   */
+  me.defer = function (func, ms) {
+    ms = ms || 0;
+    setTimeout(func, ms);
+  };
+
+  /**
    * debounce
    */
   me.debounce = function (func, wait) {
