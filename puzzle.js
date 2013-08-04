@@ -4,7 +4,6 @@
   var Canvas;
 
   me.Config = [
-    '3-possibilities',
     '1-possibilities',
     '2-possibilities',
     '3-possibilities'
