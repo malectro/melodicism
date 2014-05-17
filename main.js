@@ -4,7 +4,7 @@
   var document = root.document;
 
   if (typeof require === 'undefined') {
-    require = function (stuff, callback) {
+    require = function (stuff, morestuff, callback) {
       setTimeout(callback, 0);
     };
   }
