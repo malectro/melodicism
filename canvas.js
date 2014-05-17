@@ -41,8 +41,8 @@
 
   me.resize = function () {
     me.size = {
-      height: document.height,
-      width: document.width
+      height: window.innerHeight,
+      width: window.innerWidth
     };
 
     me.center = {

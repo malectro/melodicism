@@ -41,9 +41,9 @@
       self.buffers[src] = Sounds.bufferFor(src);
     });
 
-    self.loaded = true;
     self.bufferArray = _.toArray(self.buffers);
     self.buffer = self.bufferArray[0];
+    self.loaded = true;
   };
 
   me.pulse = function (ct) {
