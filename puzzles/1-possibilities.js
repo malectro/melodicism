@@ -16,7 +16,7 @@
       location: {x: root.Canvas.center.x - 10, y: 200},
       periodRange: [0.5, 2],
       beatSeconds: 0.8202,
-      beatSteps: [0.5, 1, 2],
+      beatSteps: [0.5, 1, 2, 4],
       color: {r: 255, g: 0, b: 0},
       lowColor: {r: 200, g: 0, b: 0}
     });
@@ -37,7 +37,7 @@
 
   me.solved = function () {
     if (!this._solved) {
-      this._solved = this.ready && this.node1.period < 1.26 && this.node1.period > 1.46;
+      this._solved = this.ready && this.node1.period > 0.8201 && this.node1.period < 0.8203;
 
       if (this._solved) {
         this.solvedAt = _.now();
@@ -50,7 +50,7 @@
   me.touchUp = function () {
     if (this.node1.location.y !== 200 && this.step === 2) {
       this.moveNode2();
-    } else if (this.step === 4 && this.node1.period > 1.26 && this.node1.period < 1.46) {
+    } else if (this.step === 4 && this.node1.period > 0.8201 && this.node1.period < 0.8203) {
       this.done();
     }
   };
@@ -73,11 +73,13 @@
   me.moveNode3 = function () {
     this.step = 4;
     root.Message.send("Try moving it here.", 10000);
-    this.highlights = [
-      {x: (2 - 1.46) * Canvas.size.width / 1.5, y: 0, w: 0.2 * Canvas.size.width / 1.5, h: Canvas.size.height,
+    this.highlights = [{
+        x: Canvas.size.width / 2,
+        y: 0,
+        w: Canvas.size.width / 4,
+        h: Canvas.size.height,
         color: {r: 100, g: 0, b: 0}
-      }
-    ];
+    }];
   };
 
   me.done = function () {

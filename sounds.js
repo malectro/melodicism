@@ -20,6 +20,7 @@
     this.gainer = root.Melodicism.Audio.ctx.createGain();
     this.clip = root.Melodicism.Audio.ctx.createBufferSource();
     this.clipTimeout = 0;
+    this._playing = false;
   };
 
   me.onload = function (func) {
@@ -84,7 +85,9 @@
     var ct = Audio.ctx.currentTime;
     var gainer = this.gainer;
 
-    this.pauseClip();
+    if (this._playing) {
+      this.pauseClip();
+    }
     root.Melodicism.Controller.setPlayButtonState('pause');
 
     gainer.gain.value = 0;
@@ -101,6 +104,7 @@
     } else {
       clip.noteOn(when, offset, duration);
     }
+    this._playing = true;
     this.clipTimeout = setTimeout(me.bound('pauseClip'), duration * 1000);
 
     gainer.gain.linearRampToValueAtTime(1, ct + 0.4);
@@ -119,6 +123,7 @@
     } else {
       this.clip.noteOff(time);
     }
+    this._playing = false;
 
     root.Melodicism.Controller.setPlayButtonState('play');
     root.Melodicism.Audio.soundNodes();
